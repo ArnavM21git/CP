@@ -16,25 +16,18 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int a,b,c,d;cin>>a>>b>>c>>d;
-    int s=0;
-    if(b>d) 
+    int n;cin>>n;
+    int ops=0;
+    vector<int> v(n);
+    for(auto &a:v)
     {
-        cout<<-1<<endl; return;
+        cin>>a;
     }
-    while(b<d)
+    for(int i=1;i<n;i++)
     {
-        a++;
-        s++;
-        b++;
+        if((v[i]&1)==(v[i-1]&1)) ops++;
     }
-    if(c>a) {cout<<-1<<endl; return;}
-    while(a!=c)
-    {
-        s++;
-        a--;
-    }
-    cout<<s<<endl;
+    cout<<ops<<endl;
 }
 
 int main() {

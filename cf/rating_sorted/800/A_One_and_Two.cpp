@@ -16,25 +16,32 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int a,b,c,d;cin>>a>>b>>c>>d;
-    int s=0;
-    if(b>d) 
+    int n,c2=0;cin>>n;
+    vector<int> v(n);
+    for(auto &a:v)
     {
-        cout<<-1<<endl; return;
+        cin>>a;
+        if(a==2) c2++;
     }
-    while(b<d)
+    if(c2%2!=0) 
     {
-        a++;
-        s++;
-        b++;
+        cout<<-1<<endl;
     }
-    if(c>a) {cout<<-1<<endl; return;}
-    while(a!=c)
-    {
-        s++;
-        a--;
+    else{
+        int k=c2/2,ca2=0;
+        for(int j=0;j<n;j++)
+        {
+            if(v[j]==2)
+            {
+                ca2++;
+            }
+            if(ca2==k)
+            {
+                cout<<j+1<<endl;
+                return;
+            }
+        }
     }
-    cout<<s<<endl;
 }
 
 int main() {

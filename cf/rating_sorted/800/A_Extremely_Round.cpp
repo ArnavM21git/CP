@@ -16,25 +16,8 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int a,b,c,d;cin>>a>>b>>c>>d;
-    int s=0;
-    if(b>d) 
-    {
-        cout<<-1<<endl; return;
-    }
-    while(b<d)
-    {
-        a++;
-        s++;
-        b++;
-    }
-    if(c>a) {cout<<-1<<endl; return;}
-    while(a!=c)
-    {
-        s++;
-        a--;
-    }
-    cout<<s<<endl;
+    
+
 }
 
 int main() {

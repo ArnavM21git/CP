@@ -16,25 +16,20 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int a,b,c,d;cin>>a>>b>>c>>d;
-    int s=0;
-    if(b>d) 
+    int n;cin>>n;
+    int l=n;
+    string s;cin>>s;
+    for(int i=0;i<=((n/2)-1);i++ )
     {
-        cout<<-1<<endl; return;
+        if(s[i]!=s[n-i-1])
+        {
+            l-=2;
+        }
+        else {
+            break;
+        }
     }
-    while(b<d)
-    {
-        a++;
-        s++;
-        b++;
-    }
-    if(c>a) {cout<<-1<<endl; return;}
-    while(a!=c)
-    {
-        s++;
-        a--;
-    }
-    cout<<s<<endl;
+    cout<<l<<endl;
 }
 
 int main() {
