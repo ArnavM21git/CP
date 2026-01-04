@@ -27,20 +27,23 @@ void fast_io() {
 }
 
 void solve() {
-    int n,k,sum=0;cin>>n>>k;
-    vector<int> a(n*k);
-    for(int i=0;i<n*k;i++)
+    int n;cin>>n;
+    int c3=0;int c2=0;
+    while(n%3==0)
     {
-        cin>>a[i];
+        c3++;
+        n/=3;
     }
-    int i=(n*k)-((n/2)+1);
-
-    while(k--)
+    while(n%2==0)
     {
-        sum+=a[i];
-        i-=(n/2+1);
+        c2++;
+        n/=2;
     }
-    cout<<sum<<endl;
+    if(n>1||c2>c3) 
+    {
+        cout<<-1<<endl;return;
+    }
+    cout<<c3+(c3-c2)<<endl;
 }
 
 int main() {

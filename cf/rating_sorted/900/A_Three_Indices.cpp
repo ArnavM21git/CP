@@ -27,20 +27,30 @@ void fast_io() {
 }
 
 void solve() {
-    int n,k,sum=0;cin>>n>>k;
-    vector<int> a(n*k);
-    for(int i=0;i<n*k;i++)
+    int n;cin>>n;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    for(int j=1;j<n-1;j++)
     {
-        cin>>a[i];
+        int pos1=-1,pos3=-1,pos2;
+        for(int i=j-1;i>=0;i--)
+        {
+            if(a[j]>a[i]) pos1=i;
+        }
+        for(int k=j+1;k<n;k++)
+        {
+            if(a[j]>a[k]) pos3=k;
+        }
+        if(pos1!=-1&&pos3!=-1)
+        {
+            pos2=j;
+            cout<<"YES"<<endl<<pos1+1<<" "<<pos2+1<<" "<<pos3+1<<endl;
+            return;
+        }
     }
-    int i=(n*k)-((n/2)+1);
 
-    while(k--)
-    {
-        sum+=a[i];
-        i-=(n/2+1);
-    }
-    cout<<sum<<endl;
+    
+     cout<<"NO"<<endl;
 }
 
 int main() {

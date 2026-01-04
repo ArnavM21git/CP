@@ -27,20 +27,16 @@ void fast_io() {
 }
 
 void solve() {
-    int n,k,sum=0;cin>>n>>k;
-    vector<int> a(n*k);
-    for(int i=0;i<n*k;i++)
+    string s;cin>>s;
+    int c1=0,c0=0,mn;
+    for(char x:s)
     {
-        cin>>a[i];
+        if(x=='1') c1++;
+        if(x=='0') c0++;
     }
-    int i=(n*k)-((n/2)+1);
-
-    while(k--)
-    {
-        sum+=a[i];
-        i-=(n/2+1);
-    }
-    cout<<sum<<endl;
+    mn=min(c1,c0);
+    if(mn%2==0) cout<<"NET"<<endl;
+    else cout<<"DA"<<endl;
 }
 
 int main() {
