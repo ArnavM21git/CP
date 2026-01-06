@@ -28,40 +28,38 @@ void fast_io() {
 
 void solve() {
     int n;cin>>n;
-    int k;cin>>k;
-    int e=0;
-    bool f=false;
-    int mn=INT_MAX;
-    vector<int> a(n);
-    for(auto &x:a) 
+    ll sum=0,odsu=0,evsu=0,e=0,o=0;
+    vector<int> v(n+1);
+    for(int i=1;i<=n;i++) 
     {
-        cin>>x;
-        if(x%k==0)
+        cin>>v[i];
+        sum+=v[i];
+        if(i%2==0) 
         {
-            f=true;
+            evsu+=v[i];
+            e++;
         }
-        if(x%2==0) e++;
-    }   
-    if(f)
+        else 
+        {
+            odsu+=v[i];
+            o++;
+        }
+    }
+    if(sum%n!=0)
     {
-        cout<<0<<endl;
+        cout<<"NO"<<endl;
         return;
     }
-    for(int x:a)
-    {
-        if(k-x>0)
-        {
-            mn=min(mn,k-x);
-        }
-        else{
-            mn=min(mn,k-(x%k));
-        }
-    }
-    if(k==4)
-    {
-        mn=min(mn,max(0,2-e));
-    }
-    cout<<mn<<endl;
+
+    ll avg=sum/n;
+    ll odavg=odsu/o;
+    ll evavg=evsu/e;
+
+    if(avg==odavg&&avg==evavg)
+        cout<<"YES"<<endl;
+    else
+        cout<<"NO"<<endl;
+
 }
 
 int main() {
