@@ -27,34 +27,50 @@ void fast_io() {
 }
 
 void solve() {
-    ll n,p;cin>>n>>p;
-    vector<ll> a(n),b(n);
-    for(auto&x:a) cin>>x;
-    for(auto&y:b) cin>>y;
-    vector<pair<ll,ll>> v(n);
-    for(int i=0;i<n;i++) v[i]={b[i],a[i]};
-    sort(v.begin(),v.end());
-    ll mincst=p;
-    ll shared=1;
-    for(auto it:v)
+    int n;cin>>n;
+    vector<int> a(n),b(n);
+    for(auto &x:a) cin>>x;
+    for(auto &y:b) cin>>y;
+
+    vector<ll> suba(2*n+1);
+    vector<ll> subb(2*n+1);
+
+    ll c=1;
+    for(int i=1;i<n;i++)
     {
-        ll sh=it.second;
-        ll cst=it.first;
-        if(p<cst) break;
-        if(shared+sh>n)
+        if(a[i-1]==a[i])
         {
-            mincst+=(n-shared)*cst;
-            shared=n;
-            break;
+            c++;
         }
         else{
-            mincst+=sh*cst;
-            shared+=sh;
+            suba[a[i-1]]=max(suba[a[i-1]],c);
+            c=1;
         }
-
     }
-    mincst+=(n-shared)*p;
-    cout<<mincst<<endl;
+
+    suba[a[n-1]]=max(suba[a[n-1]],c);
+
+    c=1;
+    for(int i=1;i<n;i++)
+    {
+        if(b[i-1]==b[i])
+        {
+            c++;
+        }
+        else{
+            subb[b[i-1]]=max(subb[b[i-1]],c);
+            c=1;
+        }
+    }
+    subb[b[n-1]]=max(subb[b[n-1]],c);
+
+    ll large=LLONG_MIN;
+    
+    for(int i=1;i<=2*n;i++)
+    {
+        large=max(large,suba[i]+subb[i]);
+    }
+    cout<<large<<endl;
 
 }
 

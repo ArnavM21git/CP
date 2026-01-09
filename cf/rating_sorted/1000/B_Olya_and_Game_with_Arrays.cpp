@@ -27,35 +27,22 @@ void fast_io() {
 }
 
 void solve() {
-    ll n,p;cin>>n>>p;
-    vector<ll> a(n),b(n);
-    for(auto&x:a) cin>>x;
-    for(auto&y:b) cin>>y;
-    vector<pair<ll,ll>> v(n);
-    for(int i=0;i<n;i++) v[i]={b[i],a[i]};
-    sort(v.begin(),v.end());
-    ll mincst=p;
-    ll shared=1;
-    for(auto it:v)
+    int n;cin>>n;
+    int lo=INT_MAX;
+    int lo2=INT_MAX;
+    ll sum=0;
+    while(n--)
     {
-        ll sh=it.second;
-        ll cst=it.first;
-        if(p<cst) break;
-        if(shared+sh>n)
-        {
-            mincst+=(n-shared)*cst;
-            shared=n;
-            break;
-        }
-        else{
-            mincst+=sh*cst;
-            shared+=sh;
-        }
-
+        int m;cin>>m;
+        vector<int> a(m);
+        for (auto&x:a) cin>>x;
+        sort(a.begin(),a.end());
+        lo=min(lo,a[0]);
+        lo2=min(lo2,a[1]);
+        sum+=a[1];
     }
-    mincst+=(n-shared)*p;
-    cout<<mincst<<endl;
-
+    sum=sum-lo2+lo;
+    cout<<sum<<endl;
 }
 
 int main() {
