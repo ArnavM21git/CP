@@ -27,19 +27,24 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    ll a=1;
-    ll b=n-1;
-    for(ll i=2;i<=sqrt(n);i++)
+    int n;char ch;cin>>n>>ch;
+    string s;cin>>s;
+    s=s+s;
+    int ind=-1;
+    int mx=INT_MIN;
+    for(int i=s.size()-1;i>=0;i--)
     {
-        if(n%i==0)
+        if(s[i]=='g')
         {
-            a=n/i;
-            b=n-a;
-            break;
+            ind=i;
+        }
+        if(s[i]==ch)
+        {
+            mx=max(mx,ind-i);
         }
     }
-    cout<<a<<" "<<b<<endl;
+    cout<<mx<<endl;
+
 }
 
 int main() {
