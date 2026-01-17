@@ -13,7 +13,6 @@
 // ULLONG_MAX     // unsigned long long
 // ======================================================
 
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -27,37 +26,32 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
+int xorr(ll n)
+{
+    if(n%4==0) return n;
+    else if(n%4==1) return 1;
+    else if(n%4==2) return n+1;
+    else return 0;
+}
+
 void solve() {
-    int n;cin>>n;
-    vector<pair<int,int>> b(n);// times:building
-
-    for(int i=0;i<n;i++)
+    int a,b;
+    cin>>a>>b;
+    ll x;
+    int c=a;
+    x=xorr(a-1);
+    if(x==b)
     {
-        int x;cin>>x;
-        b[i]={x,i};
+        cout<<c<<endl;
+        return;
     }
-
-    sort(b.rbegin(),b.rend());
-
-    vector<int> ans(n+1);
-
-    ans[0]=0;
-    ll min=0;
-    long long c = 1;
-    for(int i=0;i<n;i++)
-    {
-        ans[b[i].second+1]=c;
-        min += (2 * abs(c) * b[i].first);
-        if (c < 0)
-				c = abs(c) + 1;
-		else
-				c = -c;
+    else{
+        if((x^b)!=a)
+         cout<<c+1<<endl;
+        else{
+            cout<<c+2<<endl;
+        }
     }
-    cout << min << endl;
-
-		for (auto it : ans)
-			cout << it << " ";
-		cout << endl;
 
 
 }

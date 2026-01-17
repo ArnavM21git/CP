@@ -13,7 +13,6 @@
 // ULLONG_MAX     // unsigned long long
 // ======================================================
 
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -28,37 +27,26 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<pair<int,int>> b(n);// times:building
-
-    for(int i=0;i<n;i++)
+    int n,m;
+    cin>>n>>m;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    sort(a.begin(),a.end());
+    int p=a[n-1];
+    while(m--)
     {
-        int x;cin>>x;
-        b[i]={x,i};
+        char ch;int l,r;cin>>ch>>l>>r;
+        if(ch=='+')
+        {
+            if(p>=l&&p<=r) p++;
+        }
+        else{
+            if(p>=l&&p<=r) p--;
+        }
+        cout<<p<<" ";
     }
-
-    sort(b.rbegin(),b.rend());
-
-    vector<int> ans(n+1);
-
-    ans[0]=0;
-    ll min=0;
-    long long c = 1;
-    for(int i=0;i<n;i++)
-    {
-        ans[b[i].second+1]=c;
-        min += (2 * abs(c) * b[i].first);
-        if (c < 0)
-				c = abs(c) + 1;
-		else
-				c = -c;
-    }
-    cout << min << endl;
-
-		for (auto it : ans)
-			cout << it << " ";
-		cout << endl;
-
+    cout<<endl;
+    
 
 }
 
