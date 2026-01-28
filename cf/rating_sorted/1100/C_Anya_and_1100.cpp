@@ -27,41 +27,9 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<pair<ll,ll>> a(n);
-    for(int i=0;i<n;i++)
-    {
-        int b;cin>>b;
-        a[i].first=b;a[i].second=i;
-    }
-    sort(a.begin(),a.end());
-    vector<ll> pre(n);
-    pre[0]=a[0].first;
-    for(int i=1;i<n;i++)
-    {
-        pre[i]=pre[i-1]+a[i].first;
-    }
-    vector<ll> ans(n);
-    for(int i=0;i<n;i++)
-    {
-        ll found=i;
-        ll j=i;
-        while(j<n)
-
-        {
-            pair<ll,ll> temp={pre[j]+1,INT_MIN};
-            ll idx=lower_bound(a.begin(),a.end(),temp)-a.begin();
-            idx--;
-            if(j==idx) break;
-            found+=idx-j;
-            j=idx;
-        }
-        ans[a[i].second]=found;
-        
-        
-    }
-    for(int x:ans) cout<<x<<" ";
-    cout<<endl;
+    string s;cin>>s;
+    int q;cin>>q;
+    
 }
 
 int main() {
