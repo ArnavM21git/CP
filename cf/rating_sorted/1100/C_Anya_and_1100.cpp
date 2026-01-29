@@ -27,9 +27,39 @@ void fast_io() {
 }
 
 void solve() {
-    string s;cin>>s;
+    string s;cin>>s;int c=0;
     int q;cin>>q;
+    int n = s.size();
+    for(int i=0;i<s.size()-3;i++)
+    {
+        string f=s.substr(i,4);
+        if(f=="1100") c++;
+    }
+
+    while(q--) 
+    {
+        int i,v;cin>>i>>v;i--;
+        if(c>0 && s[i]==v+48)
+        {
+            cout<<"YES"<<endl;continue;
+        }
     
+            if (i <= n - 4 && s.substr(i, 4) == "1100") c--;
+            if(i-1>=0&&i-1<n-3&&s.substr(i-1,4)=="1100") c--;
+            if(i-2>=0&&i-2<n-3&&s.substr(i-2,4)=="1100") c--;
+            if(i-3>=0&&i-3<n-3&&s.substr(i-3,4)=="1100") c--;
+
+
+        s[i]=v+48;
+
+           if (i <= n - 4 && s.substr(i, 4) == "1100") c++;
+            if(i-1>=0&&i-1<n-3&&s.substr(i-1,4)=="1100") c++;
+            if(i-2>=0&&i-2<n-3&&s.substr(i-2,4)=="1100") c++;
+            if(i-3>=0&&i-3<n-3&&s.substr(i-3,4)=="1100") c++;
+        if(c<=0) cout<<"NO"<<endl;
+        else cout<<"YES"<<endl;
+    }
+
 }
 
 int main() {
