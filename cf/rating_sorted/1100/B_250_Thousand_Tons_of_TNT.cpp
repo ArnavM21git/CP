@@ -48,7 +48,7 @@ void solve() {
     ll gsum=LLONG_MIN;
     for(int k:v)
     {
-        ll sum,mx,mn;
+        ll sum,mx=LLONG_MIN,mn=LLONG_MAX;
         for(int i=k;i<=n;i+=k)
         {
             sum=abs(pre[i]-pre[i-k]);
