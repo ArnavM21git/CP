@@ -27,31 +27,24 @@ void fast_io() {
 }
 
 void solve() {
-    int n,x;cin>>n>>x;
-    vector<int> a(n),b(n),c(n);
-    for(auto &w:a) cin>>w;
-    for(auto &y:b) cin>>y;
-    for(auto &z:c) cin>>z;
-
-    ll k=0;
-    for(int v:a)
+    int n,k;cin>>n>>k;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    sort(a.begin(),a.end());
+    vector<ll> pre(n+1,0);
+    for(int i=1;i<=n;i++)
     {
-        if((v|x)!=x) break;
-        k|=v;
+        pre[i]=pre[i-1]+a[i-1];
     }
-    for(int v:b)
+    ll mx=LLONG_MIN;
+    ll sum=pre[n];
+    for(int i=0;i<=k;i++)
     {
-        if((v|x)!=x) break;
-        k|=v;
+        ll op1=i;ll op2=k-i;
+        ll i1=2*i;ll i2=n-i;
+        mx=max(mx,sum-pre[i1]-(pre[n]-pre[n-(k-i)]));
     }
-    for(int v:c)
-    {
-        if((v|x)!=x) break;
-        k|=v;
-    }
-
-    if(k==x) cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
+    cout<<mx<<endl;
 }
 
 int main() {

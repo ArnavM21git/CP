@@ -27,31 +27,21 @@ void fast_io() {
 }
 
 void solve() {
-    int n,x;cin>>n>>x;
-    vector<int> a(n),b(n),c(n);
-    for(auto &w:a) cin>>w;
-    for(auto &y:b) cin>>y;
-    for(auto &z:c) cin>>z;
-
-    ll k=0;
-    for(int v:a)
+    ll n;cin>>n;
+    vector<ll> a(n);
+    for(auto &x:a) cin>>x;
+    vector<ll> temp=a;
+    reverse(temp.begin(),temp.end());
+    if(temp==a) 
     {
-        if((v|x)!=x) break;
-        k|=v;
+        cout<<0<<endl;return;
     }
-    for(int v:b)
+    ll g=0LL;
+    for(int i=0;i<n;i++)
     {
-        if((v|x)!=x) break;
-        k|=v;
+        g=__gcd(g,abs(a[i]-a[n-i-1]));
     }
-    for(int v:c)
-    {
-        if((v|x)!=x) break;
-        k|=v;
-    }
-
-    if(k==x) cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
+    cout<<g<<endl;
 }
 
 int main() {

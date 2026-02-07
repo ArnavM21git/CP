@@ -12,8 +12,9 @@
 // ULONG_MAX      // unsigned long
 // ULLONG_MAX     // unsigned long long
 // ======================================================
-
+#define MOD (ll)(1e9+7)
 #include <bits/stdc++.h>
+
 using namespace std;
 
 // 1. Typedefs for faster typing
@@ -27,31 +28,25 @@ void fast_io() {
 }
 
 void solve() {
-    int n,x;cin>>n>>x;
-    vector<int> a(n),b(n),c(n);
-    for(auto &w:a) cin>>w;
+    int n;cin>>n;
+    vector<int> a(n),b(n);
+    for(auto &x:a) cin>>x;
     for(auto &y:b) cin>>y;
-    for(auto &z:c) cin>>z;
 
-    ll k=0;
-    for(int v:a)
+    sort(a.begin(),a.end());
+    sort(b.rbegin(),b.rend());
+    ll ans=1;
+    int i=0;
+    for(int x:b)
     {
-        if((v|x)!=x) break;
-        k|=v;
+        
+        ll idx=upper_bound(a.begin(),a.end(),x)-a.begin();
+        ll c=a.size()-idx;
+        ans=(ans*(max((c-i),0LL)))% MOD;
+        i++;
     }
-    for(int v:b)
-    {
-        if((v|x)!=x) break;
-        k|=v;
-    }
-    for(int v:c)
-    {
-        if((v|x)!=x) break;
-        k|=v;
-    }
+    cout<<ans<<endl;
 
-    if(k==x) cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
 }
 
 int main() {
