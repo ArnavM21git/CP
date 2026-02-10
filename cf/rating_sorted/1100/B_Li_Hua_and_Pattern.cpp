@@ -27,45 +27,46 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<int> a1(n),a2(n);
-    for(auto &x:a1) cin>>x;
-    for(auto &x:a2) cin>>x;
+    int n,k;cin>>n>>k;
+    vector<vector<int>> a(n+1,vector<int>(n+1));
+    int c=0;
 
-    int l,r;
-
-    for(int i=0;i<n;i++)
+    for(int i=1;i<=n;i++)
     {
-        if(a1[i]!=a2[i])
+        for(int j=1;j<=n;j++)
         {
-            l=i;
-            break;
-        }
-    }
-    for(int i=n-1;i>=0;i--)
-    {
-        if(a1[i]!=a2[i])
-        {
-            r=i;
-            break;
+            cin>>a[i][j];
         }
     }
 
-    for(int i=l;i>0;i--)
+    for(int i=1;i<=n;i++)
     {
-        if(a2[l]>=a2[l-1])
+        for(int j=1;j<=n;j++)
         {
-            l--;
+            if(a[i][j]!=a[n-i+1][n-j+1]) c++;
         }
     }
-    for(int i=r;i<n-1;i++)
+    c/=2;
+
+    if(c>k)
     {
-        if(a2[r]<=a2[r+1])
+        cout<<"NO"<<endl;return;
+    }
+    else{
+        ll rem=k-c;
+        if(rem%2==0)
         {
-            r++;
+            cout<<"YES"<<endl;
+        }
+        else{
+            if(n%2!=0) {cout<<"YES"<<endl;}
+            else{
+            cout<<"NO"<<endl;}
         }
     }
-    cout<<l+1<<" "<<r+1<<endl;
+
+
+
 }
 
 int main() {

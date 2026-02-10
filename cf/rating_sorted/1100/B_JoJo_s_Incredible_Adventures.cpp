@@ -27,45 +27,39 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<int> a1(n),a2(n);
-    for(auto &x:a1) cin>>x;
-    for(auto &x:a2) cin>>x;
+    string s;cin>>s;
+    ll n=s.size();
+    s=s+s;
+    ll lc=0;
+    ll mlc=LLONG_MIN;
 
-    int l,r;
-
-    for(int i=0;i<n;i++)
+    for(char ch:s)
     {
-        if(a1[i]!=a2[i])
+        if(ch=='1')
         {
-            l=i;
-            break;
+            lc++;
         }
-    }
-    for(int i=n-1;i>=0;i--)
-    {
-        if(a1[i]!=a2[i])
-        {
-            r=i;
-            break;
+        else{
+            lc=0;
         }
+        mlc=max(mlc,lc);
     }
 
-    for(int i=l;i>0;i--)
+    if(mlc>n) mlc=n;
+
+    if(mlc==n) 
     {
-        if(a2[l]>=a2[l-1])
-        {
-            l--;
-        }
+        cout<<n*n<<endl;return;
     }
-    for(int i=r;i<n-1;i++)
-    {
-        if(a2[r]<=a2[r+1])
-        {
-            r++;
-        }
-    }
-    cout<<l+1<<" "<<r+1<<endl;
+
+    ll k=mlc;
+    ll r,c;
+
+    r=(k+1)/2;
+    c=k+1-r;
+    
+    cout<<r*c<<endl;
+    
 }
 
 int main() {
