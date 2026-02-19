@@ -19,6 +19,7 @@ using namespace std;
 // 1. Typedefs for faster typing
 using ll = long long;
 using vi = vector<int>;
+const int mod=1e9+7;
 
 // 2. Fast I/O (crucial for competitive programming)
 void fast_io() {
@@ -27,27 +28,11 @@ void fast_io() {
 }
 
 void solve() {
-    int n,c;cin>>n>>c;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<ll> cost(n);
-    for(int i=0;i<n;i++)
-    {
-        cost[i]=a[i]+i+1;
-    }
-    sort(cost.begin(),cost.end());
+    
+    ll n;cin>>n;
 
-    int cnt=0;
-    for(int i=0;i<n;i++)
-    {
-        if(c>=cost[i])
-        {
-            cnt++;
-            c-=cost[i];
-        }
-        
-    }
-    cout<<cnt<<endl;
+    ll ans=((((n * (n + 1)) % mod) * (4 * n - 1)) % mod * 337) % mod;
+    cout<<ans<<endl;
 }
 
 int main() {

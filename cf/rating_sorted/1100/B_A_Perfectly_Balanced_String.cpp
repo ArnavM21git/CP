@@ -27,27 +27,25 @@ void fast_io() {
 }
 
 void solve() {
-    int n,c;cin>>n>>c;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<ll> cost(n);
-    for(int i=0;i<n;i++)
+    string s;cin>>s;
+    set<char> se;
+    for(char ch:s)
     {
-        cost[i]=a[i]+i+1;
+        se.insert(ch);
     }
-    sort(cost.begin(),cost.end());
-
-    int cnt=0;
-    for(int i=0;i<n;i++)
+    int uni=se.size();
+    bool flag=true;
+    for(int i=0;i<s.size();i++)
     {
-        if(c>=cost[i])
+        if(s[i]!=s[i%uni])
         {
-            cnt++;
-            c-=cost[i];
+            flag=false;
+            break;
         }
-        
     }
-    cout<<cnt<<endl;
+
+    if(flag) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 }
 
 int main() {

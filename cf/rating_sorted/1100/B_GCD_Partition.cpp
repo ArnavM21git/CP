@@ -27,27 +27,23 @@ void fast_io() {
 }
 
 void solve() {
-    int n,c;cin>>n>>c;
+    int n;cin>>n;
     vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<ll> cost(n);
-    for(int i=0;i<n;i++)
+    ll sum=0;
+    for(auto &x:a) {cin>>x;sum+=x;}
+    vector<ll> pre(n+1,0);
+    for(int i=1;i<=n;i++)
     {
-        cost[i]=a[i]+i+1;
+        pre[i]=pre[i-1]+a[i-1];
     }
-    sort(cost.begin(),cost.end());
 
-    int cnt=0;
-    for(int i=0;i<n;i++)
+    ll mxgcd=LLONG_MIN;
+
+    for(int i=1;i<n;i++)
     {
-        if(c>=cost[i])
-        {
-            cnt++;
-            c-=cost[i];
-        }
-        
+        mxgcd=max(__gcd(pre[i],sum-pre[i]),mxgcd);
     }
-    cout<<cnt<<endl;
+    cout<<mxgcd<<endl;
 }
 
 int main() {

@@ -27,27 +27,37 @@ void fast_io() {
 }
 
 void solve() {
-    int n,c;cin>>n>>c;
+    int n,cn=0;cin>>n;
     vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<ll> cost(n);
+    
     for(int i=0;i<n;i++)
     {
-        cost[i]=a[i]+i+1;
-    }
-    sort(cost.begin(),cost.end());
-
-    int cnt=0;
-    for(int i=0;i<n;i++)
-    {
-        if(c>=cost[i])
+        int x;cin>>x;
+        if(x<0)
         {
-            cnt++;
-            c-=cost[i];
+            cn++;
+            a[i]=-x;continue;
         }
-        
+        a[i]=x;
     }
-    cout<<cnt<<endl;
+
+
+    sort(a.begin(),a.end());
+    int f=a[0];
+
+    ll sum=0;
+    for(int i=1;i<n;i++)
+    {
+        sum+=a[i];
+    }
+
+    for(int i=0;i<cn;i++)
+    {
+        f=-f;
+    }
+    sum+=f;
+    
+    cout<<sum<<endl;
 }
 
 int main() {

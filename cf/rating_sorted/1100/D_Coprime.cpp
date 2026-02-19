@@ -16,6 +16,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+vector<int> pairs[1001];
+
 // 1. Typedefs for faster typing
 using ll = long long;
 using vi = vector<int>;
@@ -27,31 +29,43 @@ void fast_io() {
 }
 
 void solve() {
-    int n,c;cin>>n>>c;
+    int n;cin>>n;
     vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<ll> cost(n);
-    for(int i=0;i<n;i++)
+    vector<int> idx(1001,0);
+    for(int i=1;i<=n;i++)
     {
-        cost[i]=a[i]+i+1;
+        int x;cin>>x;
+        idx[x]=i;
     }
-    sort(cost.begin(),cost.end());
-
-    int cnt=0;
-    for(int i=0;i<n;i++)
+    int mx=-1;
+    for(int i=1;i<=1000;i++)
     {
-        if(c>=cost[i])
-        {
-            cnt++;
-            c-=cost[i];
-        }
         
+        if(idx[i]==0) continue;
+        for(int j: pairs[i])
+        {
+            if(idx[j]!=0)
+            {
+            mx=max(mx,idx[i]+idx[j]);
+            }
+        }
     }
-    cout<<cnt<<endl;
+    cout<<mx<<endl;
 }
 
 int main() {
     fast_io();
+
+    for(int i=1;i<=1000;i++)
+    {
+        for(int j=1;j<=1000;j++)
+        {
+            if(__gcd(i,j)==1)
+            {
+                pairs[i].push_back(j);
+            }
+        }
+    }
     int t = 1;
     cin >> t;
     while (t--) {
