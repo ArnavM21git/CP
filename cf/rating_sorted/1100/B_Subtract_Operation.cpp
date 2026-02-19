@@ -27,35 +27,21 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    ll wa=0,wb=0;
-    int l=0,r=n-1;
-    int c=0,mx=0;
-
-    while(l<=r)
+    int n,k;cin>>n>>k;
+    set<int> a;
+    while(n--)
     {
-        if(wa>wb)
+        int x;cin>>x;a.insert(x);
+    }
+    for(int x:a)
+    {
+        if(a.count(x+k))
         {
-            c++;
-            wb+=a[r];
-            r--;
-        }
-        else
-        {
-            c++;
-            wa+=a[l];
-            l++;
-        }
-        if(wa==wb)
-
-        {
-            mx=max(mx,c);
+            cout<<"YES"<<endl;
+            return;
         }
     }
-    cout<<mx<<endl;
-
+    cout<<"NO"<<endl;
 }
 
 int main() {
