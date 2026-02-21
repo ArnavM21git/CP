@@ -26,27 +26,43 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
+bool check(const vector<int> &a,int x)
+{
+    int l=0,r=a.size()-1;
+    while(l<r)
+    {
+        if(a[l]==x) l++;
+        else if (a[r]==x) r--;
+        else if(a[l]!=a[r]) return false;
+        else {l++;r--;}
+        
+    }
+    return true;
+}
+
 void solve() {
     int n;cin>>n;
     vector<int> a(n);
     for(auto &x:a) cin>>x;
-    int i=n-2,c=0;
-    int l=1;
-    while(i>=0)
+    int l=0,r=n-1;
+    while(l<r)
     {
-        if(a[i]!=a[n-1])
+        if(a[l]!=a[r])
         {
-            c++;
-            l*=2;
-        i=n-l-1;
-        }
-        else{
-            l++;i--;
-        }
-        
-    }
-    cout<<c<<endl;
+            bool f1=check(a,a[l]);
+            bool f2=check(a,a[r]);
 
+            if(f1||f2)
+            {
+                cout<<"YES"<<endl;return;
+            }
+            else {
+                cout<<"NO"<<endl;return;
+            }
+        }
+        l++;r--;
+    }
+    cout<<"YES"<<endl;
 }
 
 int main() {

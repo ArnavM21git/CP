@@ -27,26 +27,42 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<int> a(n);
+    ll n;cin>>n;
+    vector<ll> a(n);
     for(auto &x:a) cin>>x;
-    int i=n-2,c=0;
-    int l=1;
-    while(i>=0)
+    ll gcde=0,gcdo=0;
+    for(int i=0;i<n;i+=2)
     {
-        if(a[i]!=a[n-1])
-        {
-            c++;
-            l*=2;
-        i=n-l-1;
-        }
-        else{
-            l++;i--;
-        }
-        
+        gcde=__gcd(gcde,a[i]);
     }
-    cout<<c<<endl;
+    for(int i=1;i<n;i+=2)
+    {
+        gcdo=__gcd(gcdo,a[i]);
+    }
 
+    bool flag1=true;
+
+    for(int i=1;i<n;i+=2)
+    {
+        if(a[i]%gcde==0)
+        {
+            flag1=false;break;
+        }
+    }
+    if(flag1) {cout<<gcde<<endl;return;}
+    bool flag2=true;
+
+    for(int i=0;i<n;i+=2)
+    {
+        if(a[i]%gcdo==0)
+        {
+            flag2=false;break;
+        }
+    }
+    if(flag2) {cout<<gcdo<<endl;return;}
+
+    
+    cout<<0<<endl;
 }
 
 int main() {

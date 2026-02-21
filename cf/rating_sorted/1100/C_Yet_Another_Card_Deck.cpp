@@ -27,34 +27,36 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<int> a(n);
+    int n,q;cin>>n>>q;
+    vector<int> a(n),t(q);
     for(auto &x:a) cin>>x;
-    int i=n-2,c=0;
-    int l=1;
-    while(i>=0)
+    for(auto &x:t) cin>>x;
+    vector<int> fp(51,n+1);
+    for(int i=0;i<n;i++)
     {
-        if(a[i]!=a[n-1])
+        if(fp[a[i]]==n+1)
+            fp[a[i]]=i+1;
+    }
+    for(int i=0;i<q;i++)
+    {
+        int p=fp[t[i]];
+        cout<<p<<" ";
+
+        for(int j=1;j<=50;j++)
         {
-            c++;
-            l*=2;
-        i=n-l-1;
+            if(fp[j]<p)
+              fp[j]++;
         }
-        else{
-            l++;i--;
-        }
+        fp[t[i]]=1;
         
     }
-    cout<<c<<endl;
-
+    cout<<endl;
 }
 
 int main() {
     fast_io();
-    int t = 1;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+    
+    solve();
+    
     return 0;
 }

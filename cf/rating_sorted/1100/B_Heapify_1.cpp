@@ -30,23 +30,34 @@ void solve() {
     int n;cin>>n;
     vector<int> a(n);
     for(auto &x:a) cin>>x;
-    int i=n-2,c=0;
-    int l=1;
-    while(i>=0)
+    for(int i=1;i<=n;i++)
     {
-        if(a[i]!=a[n-1])
+        bool flag=false;
+        if(a[i-1]==i)
         {
-            c++;
-            l*=2;
-        i=n-l-1;
+            continue;   
         }
-        else{
-            l++;i--;
+        for(int j=i;j<=n;j*=2)
+        {
+                if(a[j-1]==i)
+                {
+                   flag=true; break;
+                }
         }
-        
-    }
-    cout<<c<<endl;
+        for(int j=i;j>0;j/=2)
+        {
+            if(a[j-1]==i)
+                {
+                    flag=true;break;
+                }
+        }
 
+        if(!flag)
+        {
+            cout<<"NO"<<endl;return;
+        }
+    }
+    cout<<"YES"<<endl;
 }
 
 int main() {
