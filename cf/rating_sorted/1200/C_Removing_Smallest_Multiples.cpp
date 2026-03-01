@@ -28,19 +28,20 @@ void fast_io() {
 
 void solve() {
     int n;cin>>n;
-    map<int,int> m;
-    while(n--)
+    string s;cin>>s;
+    ll sum=0;
+    for(int i=1;i<=n;i++)
     {
-        int x;cin>>x;
-        m[x]++;
+        for(int j=i;j<=n;j+=i)
+        {
+        if(s[j-1]!='1'&&s[j-1]!='2')
+        {
+            sum+=i;s[j-1]='2';
+        }
+        else if(s[j-1]=='1') break;
+        }
     }
-    ll ans=0;
-    for(pair<int,int> p:m)
-    {
-        ans+=max(0,m[p.first]-m[p.first-1]);
-    }
-    cout<<ans<<endl;
-    
+    cout<<sum<<endl;
 }
 
 int main() {

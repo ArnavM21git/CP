@@ -28,19 +28,37 @@ void fast_io() {
 
 void solve() {
     int n;cin>>n;
-    map<int,int> m;
-    while(n--)
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    int cmx=n;
+    int cmn=1;
+
+    int l=0,r=n-1;
+    while(l<=r)
     {
-        int x;cin>>x;
-        m[x]++;
+        if(a[l]==cmn)
+        {
+            l++;cmn++;
+        }
+        else if(a[r]==cmx)
+        {
+            r--;cmx--;
+        }
+        else if(a[l]==cmx)
+        {
+            l++;cmx--;
+        }
+        else if(a[r]==cmn)
+        {
+            r--;cmn++;
+        }
+        else break;
     }
-    ll ans=0;
-    for(pair<int,int> p:m)
-    {
-        ans+=max(0,m[p.first]-m[p.first-1]);
-    }
-    cout<<ans<<endl;
-    
+    if(l>r) cout<<-1<<endl;
+    else{
+        cout<<l+1<<" "<<r+1bf xnm,l.;
+
+\    }
 }
 
 int main() {
@@ -51,4 +69,5 @@ int main() {
         solve();
     }
     return 0;
+     
 }

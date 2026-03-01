@@ -27,20 +27,36 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    map<int,int> m;
-    while(n--)
+    int n,m;cin>>n>>m;
+    vector<ll> a(m);
+    for(auto &x:a) cin>>x;
+    sort(a.begin(),a.end());
+    vector<ll> gap(m);
+
+    for(int i=0;i<m-1;i++)
     {
-        int x;cin>>x;
-        m[x]++;
+        gap[i]=a[(i+1)]-a[i]-1;
     }
+    gap[m-1]=a[0]-a[m-1]+n-1;
+
+    sort(gap.rbegin(),gap.rend());
+
     ll ans=0;
-    for(pair<int,int> p:m)
+    ll in=0;
+    for(int i=0;i<m;i++)
     {
-        ans+=max(0,m[p.first]-m[p.first-1]);
+        ll rem=gap[i]-in;
+        if(rem<=0) break;
+
+        if(rem==1)
+        {
+            ans+=1;in+=2;
+        }
+        else{
+        ans+=rem-1;in+=4;
+        }
     }
-    cout<<ans<<endl;
-    
+    cout<<n-ans<<endl;
 }
 
 int main() {

@@ -27,20 +27,30 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    map<int,int> m;
-    while(n--)
-    {
-        int x;cin>>x;
-        m[x]++;
-    }
-    ll ans=0;
-    for(pair<int,int> p:m)
-    {
-        ans+=max(0,m[p.first]-m[p.first-1]);
-    }
-    cout<<ans<<endl;
+    int n,s;cin>>n>>s;
+    ll sum=0;   
+    vector<int> a(n);
+    for(auto &x:a) {cin>>x;sum+=x;}
     
+    if(sum<s) {cout<<-1<<endl;return;}
+
+    if(sum==s) {cout<<0<<endl;return;}
+
+    int l=0;ll csum=0;
+    int mxlen=0;
+    for(int r=0;r<n;r++)
+    {
+        csum+=a[r];
+        while(csum>s&&l<=r)
+        {
+            csum-=a[l];l++;
+        }
+        if(csum==s) mxlen=max(mxlen,r-l+1);
+    }
+    cout<<n-mxlen<<endl;
+
+
+
 }
 
 int main() {

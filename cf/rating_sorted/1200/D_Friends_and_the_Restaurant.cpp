@@ -28,19 +28,26 @@ void fast_io() {
 
 void solve() {
     int n;cin>>n;
-    map<int,int> m;
-    while(n--)
+    vector<int> x(n);
+    vector<int> y(n);
+    for(int &z:x) cin>>z;
+    for(int &z:y) cin>>z;
+    vector<int> dif(n);
+    for(int i=0;i<n;i++)
     {
-        int x;cin>>x;
-        m[x]++;
+        dif[i]=y[i]-x[i];
     }
-    ll ans=0;
-    for(pair<int,int> p:m)
+    sort(dif.begin(),dif.end());
+    int l=0,r=n-1,c=0;
+    while(l<r)
     {
-        ans+=max(0,m[p.first]-m[p.first-1]);
+        if(dif[l]+dif[r]>=0) 
+        {
+            c++;l++;r--;
+        }
+        else l++;
     }
-    cout<<ans<<endl;
-    
+    cout<<c<<endl;
 }
 
 int main() {
