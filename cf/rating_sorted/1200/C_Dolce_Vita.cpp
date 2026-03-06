@@ -25,47 +25,50 @@ void fast_io() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-
-void solve() {
-    int n,q;cin>>n>>q;ll sum=0;
-    
-    vector<pair<ll,int>> tq1(n,{0,0});
-    for(int i=0;i<n;i++)
+ ll bs(ll z,ll x,ll count)
+ {
+    ll l=1,h=1e9+2;ll ans=0;
+    while(l<=h)
     {
-        cin>>tq1[i].first;
-        sum+=tq1[i].first;
-    }
-    pair<ll,int> tq2={0,-1};
-    for(int qu=1;qu<=q;qu++)
-    {
-        int t;cin>>t;
-        if(t==1)
+        ll mid=(l)+(h-l)/2;
+        if(z+((mid-1)*count)<=x)
         {
-            int idx;ll x;
-            cin>>idx>>x;idx--;
-            int val=(tq2.second>tq1[idx].second)?tq2.first:tq1[idx].first;
-            sum=sum-val+x;
-            cout<<sum<<endl;
-            tq1[idx].first=x;
-            tq1[idx].second=qu;
-            
+            ans=max(ans,mid);
+            l=mid+1;
         }
         else{
-            ll x;cin>>x;
-            cout<<x*n<<endl;
-            sum=x*n;
-            tq2.first=x;
-            tq2.second=qu;
-
+            h=mid-1;
         }
     }
-    
+    return ans;
+ }
+
+
+void solve() {
+    ll n,x;cin>>n>>x;ll ans=0;
+    vector<ll> a(n);
+    for(auto &x:a) cin>>x;
+    sort(a.begin(),a.end());
+    vector<ll> presum(n);
+    presum[0]=a[0];
+    for(int i=1;i<n;i++)
+    {
+        presum[i]=presum[i-1]+a[i];
+    }
+
+    for(ll i=0;i<n;i++)
+    {
+        ans+=bs(presum[i],x,i+1);
+    }
+    cout<<ans<<endl;
 }
 
 int main() {
     fast_io();
-    
+    int t = 1;
+    cin >> t;
+    while (t--) {
         solve();
-    
+    }
     return 0;
 }

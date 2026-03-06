@@ -27,45 +27,28 @@ void fast_io() {
 }
 
 void solve() {
-    int n,q;cin>>n>>q;ll sum=0;
-    
-    vector<pair<ll,int>> tq1(n,{0,0});
+    int n,x;cin>>n>>x;
+    vector<ll> a(n);for(auto &z:a) cin>>z;
+    sort(a.begin(),a.end());
+    vector<ll> presum(n);
+    presum[0]=a[0];
+    for(int i=1;i<n;i++) presum[i]=presum[i-1]+a[i];
+    ll ans=0;
     for(int i=0;i<n;i++)
     {
-        cin>>tq1[i].first;
-        sum+=tq1[i].first;
+        if(presum[i]>x) break;
+        ll days=(1LL*(x-presum[i]))/(1ll*(i+1))+1;
+        ans+=days;
     }
-    pair<ll,int> tq2={0,-1};
-    for(int qu=1;qu<=q;qu++)
-    {
-        int t;cin>>t;
-        if(t==1)
-        {
-            int idx;ll x;
-            cin>>idx>>x;idx--;
-            int val=(tq2.second>tq1[idx].second)?tq2.first:tq1[idx].first;
-            sum=sum-val+x;
-            cout<<sum<<endl;
-            tq1[idx].first=x;
-            tq1[idx].second=qu;
-            
-        }
-        else{
-            ll x;cin>>x;
-            cout<<x*n<<endl;
-            sum=x*n;
-            tq2.first=x;
-            tq2.second=qu;
-
-        }
-    }
-    
+    cout<<ans<<endl;
 }
 
 int main() {
     fast_io();
-    
+    int t = 1;
+    cin >> t;
+    while (t--) {
         solve();
-    
+    }
     return 0;
 }

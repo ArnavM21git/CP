@@ -27,45 +27,30 @@ void fast_io() {
 }
 
 void solve() {
-    int n,q;cin>>n>>q;ll sum=0;
-    
-    vector<pair<ll,int>> tq1(n,{0,0});
+    int n;cin>>n;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    vector<ll> diff(n);
     for(int i=0;i<n;i++)
     {
-        cin>>tq1[i].first;
-        sum+=tq1[i].first;
+        diff[i]=a[i]-i;
     }
-    pair<ll,int> tq2={0,-1};
-    for(int qu=1;qu<=q;qu++)
+    map<ll,ll> freq;
+    ll c=0;
+    for(int i=0;i<n;i++)
     {
-        int t;cin>>t;
-        if(t==1)
-        {
-            int idx;ll x;
-            cin>>idx>>x;idx--;
-            int val=(tq2.second>tq1[idx].second)?tq2.first:tq1[idx].first;
-            sum=sum-val+x;
-            cout<<sum<<endl;
-            tq1[idx].first=x;
-            tq1[idx].second=qu;
-            
-        }
-        else{
-            ll x;cin>>x;
-            cout<<x*n<<endl;
-            sum=x*n;
-            tq2.first=x;
-            tq2.second=qu;
-
-        }
-    }
-    
+        c+=freq[diff[i]];
+        freq[diff[i]]++;
+    } 
+    cout<<c<<endl;
 }
 
 int main() {
     fast_io();
-    
+    int t = 1;
+    cin >> t;
+    while (t--) {
         solve();
-    
+    }
     return 0;
 }

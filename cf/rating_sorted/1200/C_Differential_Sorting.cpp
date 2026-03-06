@@ -27,45 +27,35 @@ void fast_io() {
 }
 
 void solve() {
-    int n,q;cin>>n>>q;ll sum=0;
-    
-    vector<pair<ll,int>> tq1(n,{0,0});
-    for(int i=0;i<n;i++)
-    {
-        cin>>tq1[i].first;
-        sum+=tq1[i].first;
-    }
-    pair<ll,int> tq2={0,-1};
-    for(int qu=1;qu<=q;qu++)
-    {
-        int t;cin>>t;
-        if(t==1)
-        {
-            int idx;ll x;
-            cin>>idx>>x;idx--;
-            int val=(tq2.second>tq1[idx].second)?tq2.first:tq1[idx].first;
-            sum=sum-val+x;
-            cout<<sum<<endl;
-            tq1[idx].first=x;
-            tq1[idx].second=qu;
-            
-        }
-        else{
-            ll x;cin>>x;
-            cout<<x*n<<endl;
-            sum=x*n;
-            tq2.first=x;
-            tq2.second=qu;
+    int n;cin>>n;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    if(a[n-1]<a[n-2]) {cout<<-1<<endl;return;}
 
+    if(is_sorted(a.begin(),a.end())) {cout<<0<<endl;return;}
+
+    if(a[n-1]>=0)
+    {
+        cout<<n-2<<endl;
+        for(int i=0;i<n-2;i++)
+        {
+            cout<<i+1<<" "<<n-1<<" "<<n<<endl;
         }
     }
+    else{
+        cout<<-1<<endl;
+    }
+
+
     
 }
 
 int main() {
     fast_io();
-    
+    int t = 1;
+    cin >> t;
+    while (t--) {
         solve();
-    
+    }
     return 0;
 }
