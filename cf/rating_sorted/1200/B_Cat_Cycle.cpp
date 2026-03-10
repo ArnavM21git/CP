@@ -27,27 +27,16 @@ void fast_io() {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<int> rem(m,0);
-    for(int i=0;i<n;i++)
+    int n,k;cin>>n>>k;
+    if(n%2==0)
     {
-        rem[a[i]%m]++;
+        cout<<((k-1)%n)+1<<endl;
     }
-    ll ans=0;
-    for(int i=0;i<m;i++)
-    {
-        int x=rem[i];int y=rem[(m-i)%m];
-        if(x==0&&y==0) continue;
-        int mn=min(x,y);
-        x-=min(mn+1,x);
-        y-=min(mn+1,y);
-        ans++;
-        ans+=(x+y);
-        rem[i]=0;rem[(m-i)%m]=0;
+    else{
+        k--;
+        int skip=n/2;
+        cout<<(k+(k/skip))%n+1<<endl;
     }
-    cout<<ans<<endl;
 }
 
 int main() {

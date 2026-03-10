@@ -27,27 +27,34 @@ void fast_io() {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
+    int n;cin>>n;
     vector<int> a(n);
     for(auto &x:a) cin>>x;
-    vector<int> rem(m,0);
-    for(int i=0;i<n;i++)
+    set<int> s;
+    for(int x:a) s.insert(x);
+    if(s.size()==1) 
     {
-        rem[a[i]%m]++;
+        cout<<"NO"<<endl;return;
     }
-    ll ans=0;
-    for(int i=0;i<m;i++)
+    int u1=a[0];int u1i=1;int u2,u2i;
+    for(int i=1;i<n;i++)
     {
-        int x=rem[i];int y=rem[(m-i)%m];
-        if(x==0&&y==0) continue;
-        int mn=min(x,y);
-        x-=min(mn+1,x);
-        y-=min(mn+1,y);
-        ans++;
-        ans+=(x+y);
-        rem[i]=0;rem[(m-i)%m]=0;
+        if(a[i]!=u1) 
+        {
+            u2=a[i];u2i=i+1;
+        }
     }
-    cout<<ans<<endl;
+    cout<<"YES"<<endl;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i]!=u1)
+        {
+            cout<<u1i<<" "<<i+1<<endl; 
+        }
+        else{
+            cout<<u2i<<" "<<i+1<<endl;
+        }
+    }
 }
 
 int main() {
