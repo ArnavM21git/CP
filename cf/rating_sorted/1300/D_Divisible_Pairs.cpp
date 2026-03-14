@@ -27,28 +27,22 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
+    int n,x,y;cin>>n>>x>>y;
     vector<int> a(n);
-    ll ans=0;
     for(auto &x:a) cin>>x;
-    vector<ll> bit(32,0);
-    for(int x:a)
+
+    map<pair<ll,ll>,ll> f;
+    ll ans=0;
+
+    for(int i=0;i<n;i++)
     {
-        for(int i=31;i>=0;i--)
-        {
-            if((x&(1<<i))>0)
-            {
-                bit[i]++;
-                break;
-            }
-        }
-    }
-    for(int i=0;i<=31;i++)
-    {
-        ans+=(bit[i]*(bit[i]-1)/2);
+        ll remx=a[i]%x,remy=a[i]%y;
+        ll targetx=(x-remx)%x;
+        ll targety=remy;
+        ans+=f[{targetx,targety}];
+        f[{targetx,targety}]++;
     }
     cout<<ans<<endl;
-}
 
 int main() {
     fast_io();

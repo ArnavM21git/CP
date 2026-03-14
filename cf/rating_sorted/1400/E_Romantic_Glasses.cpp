@@ -28,26 +28,33 @@ void fast_io() {
 
 void solve() {
     int n;cin>>n;
-    vector<int> a(n);
-    ll ans=0;
-    for(auto &x:a) cin>>x;
-    vector<ll> bit(32,0);
-    for(int x:a)
+    vector<int> a(n+1,0);
+    for(int i=1;i<=n;i++)
     {
-        for(int i=31;i>=0;i--)
+        int x;cin>>x;
+        if(i%2==0)
         {
-            if((x&(1<<i))>0)
-            {
-                bit[i]++;
-                break;
-            }
+            a[i]=-x;
+        }
+        else{
+            a[i]=x;
         }
     }
-    for(int i=0;i<=31;i++)
+    vector<ll> presum(n+1,0);
+    set<ll> s;
+    s.insert(0);
+    for(int i=1;i<=n;i++)
     {
-        ans+=(bit[i]*(bit[i]-1)/2);
+        presum[i]=presum[i-1]+a[i];
+        s.insert(presum[i]);
     }
-    cout<<ans<<endl;
+    if(s.size()<n+1)
+    {
+        cout<<"YES"<<endl;
+    }
+    else cout<<"NO"<<endl;
+
+
 }
 
 int main() {

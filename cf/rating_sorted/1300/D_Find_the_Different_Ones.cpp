@@ -29,25 +29,28 @@ void fast_io() {
 void solve() {
     int n;cin>>n;
     vector<int> a(n);
-    ll ans=0;
     for(auto &x:a) cin>>x;
-    vector<ll> bit(32,0);
-    for(int x:a)
+    int q;cin>>q;
+    vector<int> idx;
+    for(int i=1;i<n;i++)
     {
-        for(int i=31;i>=0;i--)
+        if(a[i]!=a[i-1])
         {
-            if((x&(1<<i))>0)
-            {
-                bit[i]++;
-                break;
-            }
+            idx.push_back(i);
         }
     }
-    for(int i=0;i<=31;i++)
+    while(q--)
     {
-        ans+=(bit[i]*(bit[i]-1)/2);
+        int l,r;cin>>l>>r;l--;r--;
+        auto it=lower_bound(idx.begin(),idx.end(),l+1);
+        if(it == idx.end() || *it > r)
+        {
+            cout <<-1<<" "<<-1<<endl;
+        }
+        else cout<<(*it-1)+1<<" "<<(*it)+1<<endl;
     }
-    cout<<ans<<endl;
+    
+    cout<<endl;
 }
 
 int main() {
