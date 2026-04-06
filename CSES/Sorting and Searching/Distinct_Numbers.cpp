@@ -41,38 +41,20 @@ void fast_io() {
 }
 
 void solve() {
-    int n,k;cin>>n>>k;
-    if(n<=k) {cout<<1<<endl;return;}
-    bool flag=0;int ld=n;
-    for(int i=1;i*i<=n;i++)
+    int n;cin>>n;
+    set<int> s;
+    while(n--)
     {
-        
-        if(n%i==0)
-        {
-            
-            if(i<=k)
-            {
-                ld=min(ld,n/i);flag=1;
-            }
-            if(n/i<=k)
-            {
-            ld=min(ld,i);flag=1;
-                break;
-            }
-        }
-    
+        int x;cin>>x;
+        s.insert(x);
     }
-    if(!flag) cout<<n<<endl;
-    else{
-        cout<<ld<<endl;
-    }
-
+    cout<<s.size();
 }
 
 int main() {
     fast_io();
     int t = 1;
-    cin >> t;
+    
     while (t--) {
         solve();
     }

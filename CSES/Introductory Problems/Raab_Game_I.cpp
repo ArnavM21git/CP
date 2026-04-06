@@ -41,31 +41,37 @@ void fast_io() {
 }
 
 void solve() {
-    int n,k;cin>>n>>k;
-    if(n<=k) {cout<<1<<endl;return;}
-    bool flag=0;int ld=n;
-    for(int i=1;i*i<=n;i++)
+    int n,a,b;cin>>n>>a>>b;
+    if((a+b)>n || (a==0&&b!=0) || (a!=0&&b==0)) 
     {
-        
-        if(n%i==0)
-        {
-            
-            if(i<=k)
-            {
-                ld=min(ld,n/i);flag=1;
-            }
-            if(n/i<=k)
-            {
-            ld=min(ld,i);flag=1;
-                break;
-            }
-        }
+        cout<<"NO"<<endl;return;
+    }
     
+    cout<<"YES"<<endl;
+
+    for(int i=1;i<=n;i++) cout<<i<<" ";
+    cout<<endl;
+
+    int s1=a,s2=b;
+    vector<int> ans;
+    int no=s1+1;
+    for(int i=1;i<=s2;i++)
+    {
+        ans.push_back(no);no++;
     }
-    if(!flag) cout<<n<<endl;
-    else{
-        cout<<ld<<endl;
+    int no2=1;
+    for(int i=1;i<=s1;i++)
+    {
+        ans.push_back(no2);no2++;
     }
+
+    for(int i=no;i<=n;i++)
+    {
+        ans.push_back(i);
+    }
+    for(int x:ans) cout<<x<<" ";
+    cout<<endl;
+
 
 }
 
