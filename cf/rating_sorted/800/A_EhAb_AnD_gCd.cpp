@@ -41,29 +41,14 @@ void fast_io() {
 }
 
 void solve() {
-    string a;int k;cin>>a>>k;
-    int n=a.size();
-    for(int i=0;i<n;i++)
-    {
-        if(k==0) break;
-        int mx=i;
-        for(int j=i+1;j<=i+k&&j<n;j++)
-        {
-            if(a[j]>a[mx]) mx=j;
-        }
-        if(mx==i) continue;
-        for(int j=mx;j>i;j--)
-        {
-            swap(a[j],a[j-1]);
-            k--;
-        }
-    }
-    cout<<a<<endl; 
+    int x;cin>>x;
+    cout<<1<<" "<<x-1<<endl;
 }
 
 int main() {
     fast_io();
     int t = 1;
+    cin >> t;
     while (t--) {
         solve();
     }

@@ -41,29 +41,32 @@ void fast_io() {
 }
 
 void solve() {
-    string a;int k;cin>>a>>k;
-    int n=a.size();
-    for(int i=0;i<n;i++)
+    int n,m,k;cin>>n>>m>>k;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    vector<int> b(m);
+    for(auto &x:b) cin>>x; 
+
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end());
+
+    int i=0;int j=0;int c=0;
+    while(i<n&&j<m)
     {
-        if(k==0) break;
-        int mx=i;
-        for(int j=i+1;j<=i+k&&j<n;j++)
+        if(a[i]>b[j]+k) j++;
+        else if(a[i]<b[j]-k) i++;
+        else 
         {
-            if(a[j]>a[mx]) mx=j;
-        }
-        if(mx==i) continue;
-        for(int j=mx;j>i;j--)
-        {
-            swap(a[j],a[j-1]);
-            k--;
+            c++;i++;j++;
         }
     }
-    cout<<a<<endl; 
+    cout<<c;
 }
 
 int main() {
     fast_io();
     int t = 1;
+  
     while (t--) {
         solve();
     }
