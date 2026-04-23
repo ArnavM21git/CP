@@ -40,38 +40,9 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-int check(int k,vector<pair<int,int>> a,int n)
-{
-    int lo=0,hi=0;
-    for(int i=0;i<n;i++)
-    {
-        lo=max(lo-k,a[i].first);
-        hi=min(hi+k,a[i].second);
-        if(lo>hi) return 0;
-    }
-    return 1;
-}
-
 void solve() {
-    int n;cin>>n;
-    vector<pair<int,int>> a(n);
-    for(auto &x:a)
-    {
-        int l,r;cin>>l>>r;
-        x={l,r};
-    }
-    int l=0,r=1e9;int res=-1;
-    while(l<=r)
-    {
-        int m=(l+r)/2;
-        if(check(m,a,n))
-        {
-            res=m;
-            r=m-1;
-        }
-        else l=m+1;
-    }
-    cout<<res<<endl;
+    ll n=316000;
+    cout<<(ll)n*(4*n*n-1)/3;
 }
 
 int main() {

@@ -40,42 +40,41 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-int check(int k,vector<pair<int,int>> a,int n)
+vector<ll> fibo;
+
+
+void precomp()
 {
-    int lo=0,hi=0;
-    for(int i=0;i<n;i++)
+    fibo.push_back(1);
+    fibo.push_back(2);
+    while(true)
     {
-        lo=max(lo-k,a[i].first);
-        hi=min(hi+k,a[i].second);
-        if(lo>hi) return 0;
+        ll a=fibo[fibo.size()-1];
+        ll b=fibo[fibo.size()-2];
+        if(a+b<=4e16)
+            fibo.push_back(a+b);
+            else break;
     }
-    return 1;
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<pair<int,int>> a(n);
-    for(auto &x:a)
+    ll n;cin>>n;
+    ll sum=0;
+    for(int i=0;i<fibo.size();i++)
     {
-        int l,r;cin>>l>>r;
-        x={l,r};
-    }
-    int l=0,r=1e9;int res=-1;
-    while(l<=r)
-    {
-        int m=(l+r)/2;
-        if(check(m,a,n))
+        if(fibo[i]<=n)
         {
-            res=m;
-            r=m-1;
+            if(fibo[i]%2==0)
+                sum+=fibo[i];
         }
-        else l=m+1;
+        else break;
     }
-    cout<<res<<endl;
+    cout<<sum<<endl;
 }
 
 int main() {
     fast_io();
+    precomp();
     int t = 1;
     cin >> t;
     while (t--) {
