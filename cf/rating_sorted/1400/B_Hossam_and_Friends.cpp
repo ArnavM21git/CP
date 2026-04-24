@@ -40,40 +40,27 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-// vector<ll> fibo;
-
-
-// void precomp()
-// {
-//     fibo.push_back(1);
-//     fibo.push_back(2);
-//     while(true)
-//     {
-//         ll a=fibo[fibo.size()-1];
-//         ll b=fibo[fibo.size()-2];
-//         if(a+b<=4e16)
-//             fibo.push_back(a+b);
-//             else break;
-//     }
-// }
-
 void solve() {
-    ll n;cin>>n;
-    ll a=2;ll b=8;
-    ll sum=2;
-    while(b<=n)
+    int n,m;cin>>n>>m;
+    vector<int> left(n+1,0);
+    ll ans=0;
+    for(int i=0;i<m;i++)
     {
-        sum+=b;
-        ll nxt=4*b+a;
-        a=b;
-        b=nxt;
+        int x,y;cin>>x>>y;
+        if(x>y) swap(x,y);
+        left[y]=max(left[y],x);
     }
-    cout<<sum<<endl;
+    int l=1;
+    for(int r=1;r<=n;r++)
+    {
+        l=max(left[r]+1,l);
+        ans+=r-l+1;
+    }
+    cout<<ans<<endl;
 }
 
 int main() {
     fast_io();
-    // precomp();
     int t = 1;
     cin >> t;
     while (t--) {
