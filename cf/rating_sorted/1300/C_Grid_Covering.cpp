@@ -41,11 +41,9 @@ void fast_io() {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<double> c(n),p(n);
-    for(auto &x:c) cin>>x;
-    for(auto &x:p) cin>>x/100;
-
+    ll n,m,a,b;cin>>n>>m>>a>>b;
+    if(__gcd(a,n)==1 && __gcd(b,m)==1 && __gcd(n,m)<=2) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 }
 
 int main() {
