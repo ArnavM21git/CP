@@ -20,6 +20,20 @@ using namespace std;
 using ll = long long;
 using vi = vector<int>;
 
+// ----- SIEVE TEMPLATE -----
+// TC: O(n log log n)
+// const int N = 1e7 + 10;
+// vector<bool> is_prime(N,1);
+//
+// void sieve(){
+//     is_prime[0] = is_prime[1] = 0;
+//     for(int i = 2; i < N; i++){
+//         if(is_prime[i])
+//             for(int j = 2 * i; j < N; j += i)
+//                 is_prime[j] = 0;
+//     }
+// }
+
 // 2. Fast I/O (crucial for competitive programming)
 void fast_io() {
     ios::sync_with_stdio(false);
@@ -27,22 +41,23 @@ void fast_io() {
 }
 
 void solve() {
-    int n,x,y;cin>>n>>x>>y;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-
-    map<pair<ll,ll>,ll> f;
-    ll ans=0;
-
-    for(int i=0;i<n;i++)
+    ll n;cin>>n;
+    vector<ll> a(n);
+    ll sum=0;
+    for(auto &x:a) {cin>>x;sum+=x;}
+    if(2*sum %n!=0) {cout<<0<<endl;return;}
+    ll t=((2*sum)/n);
+    unordered_map<ll,ll> mp;
+    ll c=0;
+    for(ll x:a)
     {
-        ll remx=a[i]%x,remy=a[i]%y;
-        ll targetx=(x-remx)%x;  
-        ll targety=remy;
-        ans+=f[{targetx,targety}];
-        f[{targetx,targety}]++;
+        if(mp[t-x]!=0) 
+        {
+            c+=mp[t-x];
+        }
+        mp[x]++;
     }
-    cout<<ans<<endl;
+    cout<<c<<endl;
 }
 
 int main() {
