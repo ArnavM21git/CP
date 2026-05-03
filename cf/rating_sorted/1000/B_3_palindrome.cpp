@@ -41,35 +41,24 @@ void fast_io() {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a,b(n);
-    a.push_back(m);
-    for(int i=0;i<n-1;i++)
+    int n;cin>>n;
+    int j=1;
+    string s="";
+    for(int i=1;i<=2e5+5;i+=2)
     {
-        int x;cin>>x;a.push_back(x);
+        if(j%2!=0) {s+="aa";j++;}
+        else {s+="bb";j++;}
     }
-    for(auto &x:b) cin>>x;
-
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
-
-    int i=0,j=0;
-    ll c=0;
-    while(j<n)
+    for(int i=0;i<n;i++)
     {
-        if(a[i]>=b[j]) {j++;c++;}
-        else 
-        {
-            i++;j++;
-        }
+        cout<<s[i];
     }
-    cout<<c<<endl;
 }
 
 int main() {
     fast_io();
     int t = 1;
-    cin >> t;
+    
     while (t--) {
         solve();
     }

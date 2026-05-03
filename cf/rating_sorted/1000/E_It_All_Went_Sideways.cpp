@@ -14,11 +14,13 @@
 // ======================================================
 
 #include <bits/stdc++.h>
+
 using namespace std;
 
 // 1. Typedefs for faster typing
 using ll = long long;
 using vi = vector<int>;
+
 
 // ----- SIEVE TEMPLATE -----
 // TC: O(n log log n)
@@ -41,29 +43,27 @@ void fast_io() {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a,b(n);
-    a.push_back(m);
-    for(int i=0;i<n-1;i++)
-    {
-        int x;cin>>x;a.push_back(x);
-    }
-    for(auto &x:b) cin>>x;
-
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
-
-    int i=0,j=0;
+    int n;cin>>n;
+    vector<int> a(n);for(auto &x:a) cin>>x;
     ll c=0;
-    while(j<n)
+    ll mn=LLONG_MAX;
+    map<ll,ll> mp;
+    for(int i=n-1;i>=0;i--)
     {
-        if(a[i]>=b[j]) {j++;c++;}
-        else 
-        {
-            i++;j++;
-        }
+        if(a[i]<mn) mn=a[i];
+        c+=a[i]-mn;
+        mp[mn]++;
     }
-    cout<<c<<endl;
+
+    ll mx=LLONG_MIN;
+    for(auto &x:mp)
+    {
+        if(x.second>mx) mx=x.second;
+    }
+
+    cout<<c+mx-1<<endl;
+
+
 }
 
 int main() {

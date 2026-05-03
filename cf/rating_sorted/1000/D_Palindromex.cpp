@@ -40,30 +40,68 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a,b(n);
-    a.push_back(m);
-    for(int i=0;i<n-1;i++)
+int getMex(set<int> &a)
+{
+    int s=a.size();
+    for(int i=0;i<s;i++)
     {
-        int x;cin>>x;a.push_back(x);
+        if(!a.count(i)) return i;
     }
-    for(auto &x:b) cin>>x;
+    return s;
+}
 
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
-
-    int i=0,j=0;
-    ll c=0;
-    while(j<n)
+void solve() {
+    int n;cin>>n;
+    vector<int> a(2*n);
+    for(auto &x:a) cin>>x;
+    int f=-1,s=-1;
+    int mexx=0;
+    for(int i=0;i<2*n;i++)
     {
-        if(a[i]>=b[j]) {j++;c++;}
-        else 
-        {
-            i++;j++;
+        int x=a[i];
+        if(x==0&&f==-1) f=i;
+        else {
+            if(x==0) s=i;
         }
     }
-    cout<<c<<endl;
+    int l1=f,r1=f;
+    set<int> st1;
+    while(l1>=0&&r1<2*n&&a[l1]==a[r1])
+    {
+        st1.insert(a[l1]);
+        st1.insert(a[r1]);
+        l1--;r1++;
+       
+    }
+
+    mexx=max(mexx,getMex(st1));
+
+    int l2=s,r2=s;
+    set<int> st2;
+    while(l2>=0&&r2<2*n&&a[l2]==a[r2])
+    {
+        st2.insert(a[l2]);
+        st2.insert(a[r2]);
+        l2--;r2++;
+       
+    }
+
+    mexx=max(mexx,getMex(st2));
+
+    int l3=(f+s)/2,r3=(f+s+1)/2;
+    set<int> st3;
+    while(l3>=0&&r3<2*n&&a[l3]==a[r3])
+    {
+        st3.insert(a[l3]);
+        st3.insert(a[r3]);
+        l3--;r3++;
+    }
+
+    mexx=max(mexx,getMex(st3));
+
+    cout<<mexx<<endl;
+
+
 }
 
 int main() {

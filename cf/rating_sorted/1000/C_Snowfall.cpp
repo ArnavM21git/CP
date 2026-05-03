@@ -41,29 +41,21 @@ void fast_io() {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a,b(n);
-    a.push_back(m);
-    for(int i=0;i<n-1;i++)
+    int n;cin>>n;
+    vector<int> a(n),m6,m2,m3,m1;
+    for(auto &x:a) cin>>x;
+    for(int x:a)
     {
-        int x;cin>>x;a.push_back(x);
+        if(x%6==0) m6.push_back(x);
+        else if(x%3==0) m3.push_back(x);
+        else if(x%2==0) m2.push_back(x);
+        else m1.push_back(x);
     }
-    for(auto &x:b) cin>>x;
-
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
-
-    int i=0,j=0;
-    ll c=0;
-    while(j<n)
-    {
-        if(a[i]>=b[j]) {j++;c++;}
-        else 
-        {
-            i++;j++;
-        }
-    }
-    cout<<c<<endl;
+    for(int x:m6) cout<<x<<" ";
+    for(int x:m2) cout<<x<<" ";
+    for(int x:m1) cout<<x<<" ";
+    for(int x:m3) cout<<x<<" ";
+    cout<<endl;
 }
 
 int main() {

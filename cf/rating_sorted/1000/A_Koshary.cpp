@@ -41,29 +41,10 @@ void fast_io() {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a,b(n);
-    a.push_back(m);
-    for(int i=0;i<n-1;i++)
-    {
-        int x;cin>>x;a.push_back(x);
-    }
-    for(auto &x:b) cin>>x;
-
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
-
-    int i=0,j=0;
-    ll c=0;
-    while(j<n)
-    {
-        if(a[i]>=b[j]) {j++;c++;}
-        else 
-        {
-            i++;j++;
-        }
-    }
-    cout<<c<<endl;
+    int x,y;
+    cin>>x>>y;
+    if(x%2!=0&&y%2!=0) {cout<<"NO"<<endl;}
+    else cout<<"YES"<<endl;
 }
 
 int main() {
