@@ -41,13 +41,29 @@ void fast_io() {
 }
 
 void solve() {
-    ll n;cin>>n;
-    for(ll i=1;i<=n;i++){
-        ll tot=(i*i)*((i*i)-1)/2;
-        ll non=tot-2*2*(i-1)*(i-2);
-        cout<<non<<endl;
+    int n;cin>>n;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    int l=0;
+    ll c=0;
+    set<int> s;
+    for(int r=0;r<n;r++)
+    {
+        if(s.count(a[r])==0) 
+        {
+            c+=r-l+1;
+            s.insert(a[r]);
+        }
+        else{
+            while(s.count(a[r])) 
+            {
+                s.erase(a[l]);l++;
+            }
+            s.insert(a[r]);
+            c+=r-l+1;
+        }
     }
-    
+    cout<<c;
 }
 
 int main() {

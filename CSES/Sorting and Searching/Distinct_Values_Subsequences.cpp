@@ -39,21 +39,25 @@ void fast_io() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-
+const int mod=1e9+7;
 void solve() {
-    ll n;cin>>n;
-    for(ll i=1;i<=n;i++){
-        ll tot=(i*i)*((i*i)-1)/2;
-        ll non=tot-2*2*(i-1)*(i-2);
-        cout<<non<<endl;
+    int n;cin>>n;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    unordered_map<int,int> m;
+    for(int &x:a) m[x]++;
+    ll mu=1;
+    for(auto &[n,c]:m) 
+    {
+        mu*=c+1;mu%=mod;
     }
-    
+    cout<<mu-1;
 }
 
 int main() {
     fast_io();
     int t = 1;
-    
+  
     while (t--) {
         solve();
     }

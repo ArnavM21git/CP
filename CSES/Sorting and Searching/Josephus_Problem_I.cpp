@@ -41,19 +41,23 @@ void fast_io() {
 }
 
 void solve() {
-    ll n;cin>>n;
-    for(ll i=1;i<=n;i++){
-        ll tot=(i*i)*((i*i)-1)/2;
-        ll non=tot-2*2*(i-1)*(i-2);
-        cout<<non<<endl;
+    int n;cin>>n;
+    queue<int> q;
+    for(int i=1;i<=n;i++) q.push(i);
+    while(!q.empty())
+    {
+        q.push(q.front());
+        q.pop();
+        int x=q.front();
+        q.pop();
+        cout<<x<<" ";
     }
-    
 }
 
 int main() {
     fast_io();
     int t = 1;
-    
+   
     while (t--) {
         solve();
     }
