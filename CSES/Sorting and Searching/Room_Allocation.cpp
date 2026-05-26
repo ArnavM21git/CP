@@ -28,7 +28,7 @@ using vi = vector<int>;
 typedef tree<
     int,
     null_type,
-    less_equal<int>,
+    less<int>,
     rb_tree_tag,
     tree_order_statistics_node_update
 > ordered_set;
@@ -57,40 +57,44 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
+struct customer{
+    int a;int d;int idx;
+};
+
 void solve() {
     int n;cin>>n;
-    vector<pair<pair<int,int>,int>> a(n);
+    vector<customer> a(n);
     for(int i=0;i<n;i++)
     {
-        int x,y;cin>>x>>y;
-        a[i]={{x,y},i};
+        cin>>a[i].a>>a[i].d;
+        a[i].idx=i;
     }
-    sort(a.begin(),a.end(),[](pair<pair<int,int>,int> x,pair<pair<int,int>,int> y)
+    sort(a.begin(),a.end(),[](customer &x,customer &y)
     {
-        if(x.first.first!=y.first.first) return x.first.first<y.first.first;
-        return x.first.second>y.first.second;
+        return x.a<y.a;
     });
-    vector<int> ans1(n,0),ans2(n,0);
-    
-    ordered_set l;
+
+    multiset<pair<int,int>> r;//dep,rno
+    vector<int> ans(n);
+    int room=1;
     for(int i=0;i<n;i++)
     {
-        int no=l.order_of_key(a[i].first.second);
-        ans1[a[i].second]=l.size()-no;
-        l.insert(a[i].first.second);
+        if(a[i].a>r.begin()->first && !r.empty())
+        {
+            int rno=r.begin()->second;
+            r.erase(r.begin());
+            r.insert({a[i].d,rno});
+            ans[a[i].idx]=rno;
+        }
+        else{
+            ans[a[i].idx]=room;
+            r.insert({a[i].d,room++});
+            
+        }
     }
+    cout<<room-1<<endl;
+    for(int &x:ans) cout<<x<<" ";
 
-    ordered_set r;
-    for(int i=n-1;i>=0;i--)
-    {
-        int no=r.order_of_key(a[i].first.second+1);//+1 as  used less_equal<int>
-        ans2[a[i].second]=no;
-        r.insert(a[i].first.second);
-    }
-
-    for(int &x:ans2) cout<<x<<" ";
-    cout<<endl;
-    for(int &x:ans1) cout<<x<<" ";
 }
 
 int main() {

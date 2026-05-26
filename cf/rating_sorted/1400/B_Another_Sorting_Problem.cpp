@@ -28,7 +28,7 @@ using vi = vector<int>;
 typedef tree<
     int,
     null_type,
-    less_equal<int>,
+    less<int>,
     rb_tree_tag,
     tree_order_statistics_node_update
 > ordered_set;
@@ -59,44 +59,31 @@ void fast_io() {
 
 void solve() {
     int n;cin>>n;
-    vector<pair<pair<int,int>,int>> a(n);
-    for(int i=0;i<n;i++)
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    int k=0;
+    for(int i=1;i<n;i++)
     {
-        int x,y;cin>>x>>y;
-        a[i]={{x,y},i};
+        if(a[i]<a[i-1]) k=max(k,a[i-1]-a[i]);
     }
-    sort(a.begin(),a.end(),[](pair<pair<int,int>,int> x,pair<pair<int,int>,int> y)
+    for(int i=0;i<n-1;i++)
     {
-        if(x.first.first!=y.first.first) return x.first.first<y.first.first;
-        return x.first.second>y.first.second;
-    });
-    vector<int> ans1(n,0),ans2(n,0);
-    
-    ordered_set l;
-    for(int i=0;i<n;i++)
-    {
-        int no=l.order_of_key(a[i].first.second);
-        ans1[a[i].second]=l.size()-no;
-        l.insert(a[i].first.second);
+        if(a[i]>a[i+1]) a[i+1]+=k;
     }
-
-    ordered_set r;
-    for(int i=n-1;i>=0;i--)
+    for(int i=0;i<n-1;i++)
     {
-        int no=r.order_of_key(a[i].first.second+1);//+1 as  used less_equal<int>
-        ans2[a[i].second]=no;
-        r.insert(a[i].first.second);
+        if(a[i]>a[i+1]) 
+        {
+            cout<<"NO"<<endl;return;
+        }
     }
-
-    for(int &x:ans2) cout<<x<<" ";
-    cout<<endl;
-    for(int &x:ans1) cout<<x<<" ";
+    cout<<"YES"<<endl;
 }
 
 int main() {
     fast_io();
     int t = 1;
-    
+    cin >> t;
     while (t--) {
         solve();
     }
