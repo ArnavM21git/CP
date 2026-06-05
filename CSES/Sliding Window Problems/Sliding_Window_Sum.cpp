@@ -49,10 +49,11 @@ void solve() {
     {
         ll y=(a*xx[i-1]+b)%c;
         xx.push_back(y);
-    }
+    }//ip
+
     int l=0,r=k-1;
     ll sum=0;
-    for(int i=l;i<=r;i++) sum+=xx[i];
+    for(int i=l;i<=r;i++) sum+=xx[i];//initial window
 
     ll ans=sum;
     for(int i=0;i<n-k;i++)
