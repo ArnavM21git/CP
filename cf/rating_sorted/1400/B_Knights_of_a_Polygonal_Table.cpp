@@ -79,34 +79,47 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll josephus (ll n,ll k)
-{
-    if(n==1) return 1;
-    if(k<=n/2) return 2*k;
-    k-=n/2;
-    if(n%2==0) 
-    {
-        ll no=josephus(n/2,k);
-        return 2*no-1;
-    }
-    else
-    {
-        ll no=josephus(n/2+1,k);
-        if(no==1) return n;
-        return 2*no-3;
-    }
-}
-
 void solve() {
-    ll n,k;cin>>n>>k;
-    cout<<josephus(n,k)<<endl;
+    int n,k;cin>>n>>k;
+    map<pair<int,int>,int> pc;
+    vector<int> p(n);
+    vector<int> c(n);
+    for(auto &x:p) cin>>x;
+    for(auto &x:c) cin>>x;
+    for(int i=0;i<n;i++)
+    {
+        pc.insert({{p[i],c[i]},i});
+    }
+    multiset<int> m;
+    vector<ll> ans(n);
+    ll sum=0;
+    for(auto &[p,idx]:pc)
+    {
+        if(m.size()<=k)
+        {
+            m.insert(p.second);
+            sum+=p.second;
+            ans[idx]=sum;
+        }
+        else{
+            sum-=*m.begin();
+            m.erase(m.begin());
+            m.insert(p.second);
+            sum+=p.second;
+            ans[idx]=sum;
+        }
+    }
+    for(int i = 0; i < n; i++) {
+        cout << ans[i] << " ";
+    }
+
 }
 
 int main() {
     fast_io();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--) {
         solve();

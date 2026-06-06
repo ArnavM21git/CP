@@ -79,34 +79,18 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll josephus (ll n,ll k)
-{
-    if(n==1) return 1;
-    if(k<=n/2) return 2*k;
-    k-=n/2;
-    if(n%2==0) 
-    {
-        ll no=josephus(n/2,k);
-        return 2*no-1;
-    }
-    else
-    {
-        ll no=josephus(n/2+1,k);
-        if(no==1) return n;
-        return 2*no-3;
-    }
-}
-
+const int mod=1e9+7;
 void solve() {
-    ll n,k;cin>>n>>k;
-    cout<<josephus(n,k)<<endl;
+    int n,k;cin>>n>>k;
+    ll ans=((n-1)*(k))%mod;
+    
 }
 
 int main() {
     fast_io();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--) {
         solve();

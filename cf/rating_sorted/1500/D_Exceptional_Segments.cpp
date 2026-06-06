@@ -78,28 +78,29 @@ void fast_io() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-
-ll josephus (ll n,ll k)
-{
-    if(n==1) return 1;
-    if(k<=n/2) return 2*k;
-    k-=n/2;
-    if(n%2==0) 
-    {
-        ll no=josephus(n/2,k);
-        return 2*no-1;
-    }
-    else
-    {
-        ll no=josephus(n/2+1,k);
-        if(no==1) return n;
-        return 2*no-3;
-    }
-}
-
+const int mod=998244353;
 void solve() {
-    ll n,k;cin>>n>>k;
-    cout<<josephus(n,k)<<endl;
+    ll n,xx;cin>>n>>xx;
+    ll x=xx-1;
+    
+    ll c1l=x/4;
+    if(x%4>=1) c1l++;
+    ll c0l=x/4;
+    if(x%4>=3) c0l++;
+    c0l++;
+
+    ll c1t=n/4;
+    if(n%4>=1) c1t++;
+    ll c0t=n/4;
+    if(n%4>=3) c0t++;
+    c0t++;
+
+    ll c1r=c1t-c1l;
+    ll c0r=c0t-c0l;
+
+    ll c1=((c1r%mod)*(c1l%mod))%mod;
+    ll c0=((c0r%mod)*(c0l%mod))%mod;
+    cout<<(c0+c1)%mod<<endl;
 }
 
 int main() {
