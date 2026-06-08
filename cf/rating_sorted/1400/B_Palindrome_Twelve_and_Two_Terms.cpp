@@ -78,47 +78,24 @@ void fast_io() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-const int MOD = 1e9+7;
+
 void solve() {
-    int n;cin>>n;
-    vector<vector<char>> a(n,vector<char>(n));
-    vector<vector<int>> dp(n,vector<int> (n,0));
-    for(int i=0;i<n;i++)
+    ll n;cin>>n;
+    int m=n%12;
+    if(m==10)
     {
-        for(int j=0;j<n;j++)
-        {
-            char ch;cin>>ch;a[i][j]=ch;
-        }
+        if(m+12<=n)
+            {cout<<m+12<<" "<<n-m-12<<endl;return;}
+        else {cout<<-1<<endl;return;}
     }
-    
-    dp[n-1][n-1]=1;
-    
-    for(int i=n-1;i>=0;i--)
-    {
-        for(int j=n-1;j>=0;j--)
-        {
-            if(a[i][j]=='*')
-            {
-                dp[i][j]=0;continue;
-            }
-            if(i==n-1&&j==n-1) continue; 
-            if(i==n-1)
-                dp[i][j]=(dp[i][j]+dp[i][j+1])%MOD;
-            else if(j==n-1)
-                dp[i][j]=(dp[i+1][j]+dp[i][j])%MOD;
-            else dp[i][j]=(dp[i+1][j]+dp[i][j+1])%MOD;
-        }
-    }
-    cout<<dp[0][0];
-
-
+    cout<<m<<" "<<n-m<<endl;
 }
 
 int main() {
     fast_io();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();
