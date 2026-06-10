@@ -85,41 +85,22 @@ void fast_io()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<ll> h(n);
-    for (auto &x : h)
-        cin >> x;
-    vector<ll> ans(n);
-    for (int i = 0; i < n; i++)
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    stack<int> st;
+    vector<ppair<int, int>> p;
+    for (int i = 0; i < s.size(); i++)
     {
-
-        vector<ll> a1(n, 0);
-        vector<ll> a2(n, 0), a3(n, 0);
-        ll mx = LLONG_MIN;
-
-        for (int j = 1; j < n; j++)
+        if (ch == '{')
+            st.push(ch);
+        else
         {
-            a1[j] = max(mx, h[j - 1]);
-            mx = max(mx, h[j - 1]);
+            if (!st.empty())
+                st.pop();
         }
-        mx = LLONG_MIN;
-        for (int j = n - 1; j > 0; j--)
-        {
-            a2[j] = max(mx, h[j]);
-            mx = max(mx, h[j]);
-        }
-        ll sum = 0;
-        for (int j = 0; j < n; j++)
-        {
-            sum += min(a1[j], a2[j]);
-        }
-        ans[i] = sum;
-        rotate(h.begin(), h.begin() + 1, h.end());
     }
-    for (auto &x : ans)
-        cout << x << " ";
-    cout << endl;
 }
 
 int main()

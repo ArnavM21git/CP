@@ -83,43 +83,43 @@ void fast_io()
     cin.tie(nullptr);
 }
 
+bool check(ll n, ll x, ll y, ll z, ll m)
+{
+    ll sum1 = 0;
+    sum1 += m * (x + y);
+    ll sum2 = 0;
+    sum2 += m * x;
+    if (m > z)
+    {
+        sum2 += (m - z) * 10LL * y;
+    }
+    if (max(sum1, sum2) >= n)
+        return 1;
+    else
+        return 0;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<ll> h(n);
-    for (auto &x : h)
-        cin >> x;
-    vector<ll> ans(n);
-    for (int i = 0; i < n; i++)
+    ll n, x, y, z;
+    cin >> n >> x >> y >> z;
+    ll l = 1;
+    ll r = min(x, y) * n;
+    ll res = max(x, y) * n;
+
+    while (l <= r)
     {
-
-        vector<ll> a1(n, 0);
-        vector<ll> a2(n, 0), a3(n, 0);
-        ll mx = LLONG_MIN;
-
-        for (int j = 1; j < n; j++)
+        ll m = (r - l) / 2 + l;
+        if (check(n, x, y, z, m))
         {
-            a1[j] = max(mx, h[j - 1]);
-            mx = max(mx, h[j - 1]);
+            res = min(m, res);
+            r = m - 1;
         }
-        mx = LLONG_MIN;
-        for (int j = n - 1; j > 0; j--)
+        else
         {
-            a2[j] = max(mx, h[j]);
-            mx = max(mx, h[j]);
+            l = m + 1;
         }
-        ll sum = 0;
-        for (int j = 0; j < n; j++)
-        {
-            sum += min(a1[j], a2[j]);
-        }
-        ans[i] = sum;
-        rotate(h.begin(), h.begin() + 1, h.end());
     }
-    for (auto &x : ans)
-        cout << x << " ";
-    cout << endl;
+    cout << res << endl;
 }
 
 int main()

@@ -87,37 +87,26 @@ void solve()
 {
     int n;
     cin >> n;
-    vector<ll> h(n);
-    for (auto &x : h)
-        cin >> x;
-    vector<ll> ans(n);
-    for (int i = 0; i < n; i++)
+    vector<int> ans;
+    vector<int> one;
+    for (int i = 1; i <= n; i++)
+        one.push_back(i);
+    rotate(one.begin(), one.begin() + 1, one.end());
+    for (int i = 1; i <= n; i++)
     {
-
-        vector<ll> a1(n, 0);
-        vector<ll> a2(n, 0), a3(n, 0);
-        ll mx = LLONG_MIN;
-
-        for (int j = 1; j < n; j++)
-        {
-            a1[j] = max(mx, h[j - 1]);
-            mx = max(mx, h[j - 1]);
-        }
-        mx = LLONG_MIN;
-        for (int j = n - 1; j > 0; j--)
-        {
-            a2[j] = max(mx, h[j]);
-            mx = max(mx, h[j]);
-        }
-        ll sum = 0;
-        for (int j = 0; j < n; j++)
-        {
-            sum += min(a1[j], a2[j]);
-        }
-        ans[i] = sum;
-        rotate(h.begin(), h.begin() + 1, h.end());
+        ans.push_back(i);
     }
-    for (auto &x : ans)
+    for (int i = 1; i <= n; i++)
+    {
+        ans.push_back(i);
+    }
+    for (int &x : one)
+        ans.push_back(x);
+    for (int i = 1; i <= n; i++)
+    {
+        ans.push_back(i);
+    }
+    for (int &x : ans)
         cout << x << " ";
     cout << endl;
 }
