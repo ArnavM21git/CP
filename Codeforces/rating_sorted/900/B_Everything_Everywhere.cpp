@@ -91,68 +91,13 @@ void solve()
     vector<int> a(n);
     for (auto &x : a)
         cin >> x;
-
-    vector<vector<int>> mn(n, vector<int>(n, 0));
-    vector<vector<int>> mx(n, vector<int>(n, 0));
-
-    for (int l = 0; l < n; l++)
+    int c = 0;
+    for (int i = 1; i < n; i++)
     {
-        int mnn = a[l], mxx = a[l];
-        for (int r = l; r < n; r++)
-        {
-            mnn = min(mnn, a[r]);
-            mxx = max(mxx, a[r]);
-            mn[l][r] = mnn;
-            mx[l][r] = mxx;
-        }
+        if (abs(a[i] - a[i - 1]) == __gcd(a[i], a[i - 1]))
+            c++;
     }
-    int ans = 0;
-    for (int len = 1; len <= n / 2; len++)
-    {
-        int unique = 0;
-        vector<int> s(n, 0);
-        vector<int> his(3 * n, 0);
-        fast_o_map<int, int> win;
-        for (int j = 0; j < n; j++)
-        {
-            if (win[a[j]] == 0)
-                unique++;
-            win[a[j]]++;
-            int i = j - len + 1;
-
-            if (i - len >= 0)
-            {
-                if (s[i - 1] > 0)
-                    his[s[i - 1]]++;
-            }
-
-            if (i - 1 >= 0)
-            {
-                win[a[i - 1]]--;
-                if (win[a[i - 1]] == 0)
-                    unique--;
-            }
-
-            if (i >= 0)
-            {
-                int mini = mn[i][j];
-                int maxx = mx[i][j];
-
-                if (maxx - mini + 1 == len && unique == len)
-                {
-                    s[j] = maxx;
-
-                    if (his[mini - 1] > 0 || his[maxx + 1 + len - 1] > 0)
-                    {
-                        ans = max(ans, len);
-
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    cout << ans << endl;
+    cout << c << endl;
 }
 
 int main()
