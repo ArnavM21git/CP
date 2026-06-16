@@ -92,6 +92,7 @@ void solve() {
             if(i+1<n&&a[i+1]>=1) sum--;
         }
     }
+    
     cout<<sum<<endl;
 }
 
