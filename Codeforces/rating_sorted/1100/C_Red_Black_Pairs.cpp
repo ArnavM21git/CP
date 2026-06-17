@@ -20,9 +20,19 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-// 1. Typedefs for faster typing
+// ----- TYPEDEFS -----
 using ll = long long;
 using vi = vector<int>;
+using vll = vector<long long>;
+
+// ----- MACROS -----
+#define rep(i,a,b) for(int i=(a); i<(b); i++)
+#define per(i,a,b) for(int i=(a); i>=(b); i--)
+#define all(x) (x).begin(), (x).end()
+#define sz(x) ((int)(x).size())
+#define pb push_back
+#define ff first
+#define ss second
 
 // ----- CUSTOM HASH -----
 struct custom_hash {
@@ -60,57 +70,45 @@ typedef tree<
 // ----- SIEVE TEMPLATE -----
 // TC: O(n log log n)
 // const int N = 1e7 + 10;
-// vector<bool> is_prime(N, 1);
+// vector<bool> is_prime(N, true);
 //
 // void sieve() {
-//     is_prime[0] = is_prime[1] = 0;
-//     for (int i = 2; i < N; i++) {
+//     is_prime[0] = is_prime[1] = false;
+//
+//     for (int i = 2; i * i < N; i++) {
 //         if (is_prime[i]) {
-//             for (int j = 2 * i; j < N; j += i) {
-//                 is_prime[j] = 0;
+//             for (int j = i * i; j < N; j += i) {
+//                 is_prime[j] = false;
 //             }
 //         }
 //     }
 // }
 
-// 2. Fast I/O
+// Fast I/O
 void fast_io() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-const int mod=1e9+7;
+
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<vector<ll>> dp(n+1,vector<ll> (m+2,0));
-    for(int i=1;i<=m;i++)
+    int n;cin>>n;
+    string s,t;cin>>s>>t;
+    vector<int> dp(n+1,0);
+    dp[0]=0;
+    dp[1]=s[0]!=t[0];
+    for(int i=1;i<=n;i++)
     {
-        if(a[0]==0||a[0]==i) dp[1][i]=1;
-        else dp[1][i]=0;
+        if(i==1) continue;
+        dp[i]=min(dp[i-1]+(s[i-1]!=t[i-1]),dp[i-2]+(s[i-1]!=s[i-2])+(t[i-1]!=t[i-2]));
     }
-    for(int i=2;i<=n;i++)
-    {
-        for(int j=1;j<=m;j++)
-        {
-            if(a[i-1]==0 ||a[i-1]==j)
-                dp[i][j]=(dp[i-1][j-1]+dp[i-1][j]+dp[i-1][j+1])%mod;
-            else dp[i][j]=0;
-        }
-    }
-    ll sum=0;
-    for(int i=1;i<=m;i++)
-    {
-        sum=(sum+dp[n][i])%mod;
-    }
-    cout<<sum;
+    cout<<dp[n]<<endl;
 }
 
 int main() {
     fast_io();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();

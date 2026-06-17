@@ -23,17 +23,21 @@ using namespace __gnu_pbds;
 // 1. Typedefs for faster typing
 using ll = long long;
 using vi = vector<int>;
+using vll = vector<long long>;
 
 // ----- CUSTOM HASH -----
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
+struct custom_hash
+{
+    static uint64_t splitmix64(uint64_t x)
+    {
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
 
-    size_t operator()(uint64_t x) const {
+    size_t operator()(uint64_t x) const
+    {
         static const uint64_t FIXED_RANDOM =
             chrono::steady_clock::now().time_since_epoch().count();
 
@@ -42,7 +46,7 @@ struct custom_hash {
 };
 
 // Fast Hash Map
-template<typename K, typename V>
+template <typename K, typename V>
 using fast_o_map = gp_hash_table<K, V, custom_hash>;
 
 // ----- PBDS -----
@@ -51,8 +55,8 @@ typedef tree<
     null_type,
     less<int>,
     rb_tree_tag,
-    tree_order_statistics_node_update
-> ordered_set;
+    tree_order_statistics_node_update>
+    ordered_set;
 
 // find_by_order(k)
 // order_of_key(x)
@@ -74,45 +78,51 @@ typedef tree<
 // }
 
 // 2. Fast I/O
-void fast_io() {
+void fast_io()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-const int mod=1e9+7;
-void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<vector<ll>> dp(n+1,vector<ll> (m+2,0));
-    for(int i=1;i<=m;i++)
+
+void solve()
+{
+    string s1, s2;
+    cin >> s1 >> s2;
+    int n = s1.size(), m = s2.size();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    for (int i = 1; i <= m; i++)
     {
-        if(a[0]==0||a[0]==i) dp[1][i]=1;
-        else dp[1][i]=0;
+        dp[0][i] = i;
     }
-    for(int i=2;i<=n;i++)
+    for (int i = 1; i <= n; i++)
     {
-        for(int j=1;j<=m;j++)
+        dp[i][0] = i;
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= m; j++)
         {
-            if(a[i-1]==0 ||a[i-1]==j)
-                dp[i][j]=(dp[i-1][j-1]+dp[i-1][j]+dp[i-1][j+1])%mod;
-            else dp[i][j]=0;
+            if (s1[i - 1] == s2[j - 1])
+                dp[i][j] = dp[i - 1][j - 1];
+            else
+                dp[i][j] = min({1 + dp[i][j - 1], 1 + dp[i - 1][j - 1], 1 + dp[i - 1][j]});
+                // insert.replace.del
         }
     }
-    ll sum=0;
-    for(int i=1;i<=m;i++)
-    {
-        sum=(sum+dp[n][i])%mod;
-    }
-    cout<<sum;
+    cout << dp[n][m];
 }
 
-int main() {
+int main()
+{
     fast_io();
 
     int t = 1;
     // cin >> t;
 
-    while (t--) {
+    while (t--)
+    {
         solve();
     }
 

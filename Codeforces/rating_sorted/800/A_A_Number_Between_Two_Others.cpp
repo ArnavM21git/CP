@@ -23,6 +23,7 @@ using namespace __gnu_pbds;
 // 1. Typedefs for faster typing
 using ll = long long;
 using vi = vector<int>;
+using vll = vector<long long>;
 
 // ----- CUSTOM HASH -----
 struct custom_hash {
@@ -78,39 +79,18 @@ void fast_io() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
-const int mod=1e9+7;
+
 void solve() {
-    int n,m;cin>>n>>m;
-    vector<int> a(n);
-    for(auto &x:a) cin>>x;
-    vector<vector<ll>> dp(n+1,vector<ll> (m+2,0));
-    for(int i=1;i<=m;i++)
-    {
-        if(a[0]==0||a[0]==i) dp[1][i]=1;
-        else dp[1][i]=0;
-    }
-    for(int i=2;i<=n;i++)
-    {
-        for(int j=1;j<=m;j++)
-        {
-            if(a[i-1]==0 ||a[i-1]==j)
-                dp[i][j]=(dp[i-1][j-1]+dp[i-1][j]+dp[i-1][j+1])%mod;
-            else dp[i][j]=0;
-        }
-    }
-    ll sum=0;
-    for(int i=1;i<=m;i++)
-    {
-        sum=(sum+dp[n][i])%mod;
-    }
-    cout<<sum;
+    ll a,b;cin>>a>>b;
+    if(b-a!=a) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 }
 
 int main() {
     fast_io();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();
