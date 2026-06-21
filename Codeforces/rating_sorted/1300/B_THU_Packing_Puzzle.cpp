@@ -90,29 +90,35 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-
-
 void solve() {
-    ll a,b,c,m;cin>>a>>b>>c>>m;
+    ll t,h,u;cin>>t>>h>>u;
+    ll ans=0;
 
-    auto lcmm=[&](ll x,ll y){
-        return (x*y)/(__gcd(x,y));
-    };
+    ans+=min(t,u)*4LL;//tu
+    ll mn=min(t,u);
+    t-=mn;u-=mn;
 
-    ll lcmall=lcmm(lcmm(a,b),c);
-    ll lcmab=lcmm(a,b);
-    ll lcmac=lcmm(a,c);
-    ll lcmbc=lcmm(b,c);
 
-    ll aa=(m/a)*6;
-    ll bb=(m/b)*6;
-    ll cc=(m/c)*6;
-
-    aa=aa-(4*(m/lcmall))-3*((m/lcmab)-(m/lcmall))-3*((m/lcmac)-(m/lcmall));
-    bb=bb-(4*(m/lcmall))-3*((m/lcmbc)-(m/lcmall))-3*((m/lcmab)-(m/lcmall));
-    cc=cc-(4*(m/lcmall))-3*((m/lcmac)-(m/lcmall))-3*((m/lcmbc)-(m/lcmall));
-
-    cout<<aa<<" "<<bb<<" "<<cc<<endl;
+    if(t)
+    {
+        ans+=min(t/2,h)*7LL;
+        ll mnn=min(t/2,h);
+        h-=mnn;
+        t-=mnn*2;
+    }
+    if(t && h) 
+    {
+        ans+=5;
+        t--;h--;
+    }
+    if(t) 
+    {
+        ans+=2LL*t+1;
+    }
+    if(u) ans+=1ll*3*u;
+    if(h) ans+=1LL*3*h;
+    cout<<ans<<endl;
+    
 }
 
 int main() {
