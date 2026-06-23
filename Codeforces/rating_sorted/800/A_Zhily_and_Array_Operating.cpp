@@ -22,14 +22,14 @@ using namespace __gnu_pbds;
 
 // ----- TYPEDEFS -----
 using ll = long long;
-using vi = vector<int>;
+using vi = vector<long long>;
 using vll = vector<long long>;
 
 // ----- MACROS -----
 #define rep(i,a,b) for(long long i=(a); i<(b); i++)
 #define per(i,a,b) for(long long i=(a); i>=(b); i--)
 #define all(x) (x).begin(), (x).end()
-#define sz(x) ((int)(x).size())
+#define sz(x) ((long long)(x).size())
 #define pb push_back
 #define ff first
 #define ss second
@@ -90,36 +90,21 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll nos_atk(vi &a,ll L,ll R,ll k)
-{
-    fast_o_map<ll,ll> freq;
-    ll l=0;
-    ll uni=0;
-    ll ans=0;
-    for(ll r=0;r<a.size();r++)
-    {
-        if(freq[a[r]]==0) uni++;
-        freq[a[r]]++;
-        while(uni>k || r-l+1>R)
-        {
-            freq[a[l]]--;
-            if(freq[a[l]]==0) uni--;
-            l++;
-        }
-        if(r-l+1>=L)
-        {
-            ans+=r-l+1-(L-1);// 1..L-1 array shorter
-        }
-
-    }
-    return ans;
-}
-
 void solve() {
-    ll n,k,L,R;cin>>n>>k>>L>>R;
+    ll n;cin>>n;
     vi a(n);
     rep(i,0,n) cin>>a[i];
-    cout<<nos_atk(a,L,R,k)-nos_atk(a,L,R,k-1)<<endl;
+    ll c=0;
+   
+    per(i,n-2,0)
+    {
+        if(a[i+1]>0) 
+        {
+            a[i]=a[i]+a[i+1];
+        }
+    }
+    rep(i,0,n) {if(a[i]>0) c++;}
+    cout<<c<<endl;
 }
 
 int main() {

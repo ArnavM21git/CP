@@ -22,14 +22,14 @@ using namespace __gnu_pbds;
 
 // ----- TYPEDEFS -----
 using ll = long long;
-using vi = vector<int>;
+using vi = vector<long long>;
 using vll = vector<long long>;
 
 // ----- MACROS -----
 #define rep(i,a,b) for(long long i=(a); i<(b); i++)
 #define per(i,a,b) for(long long i=(a); i>=(b); i--)
 #define all(x) (x).begin(), (x).end()
-#define sz(x) ((int)(x).size())
+#define sz(x) ((long long)(x).size())
 #define pb push_back
 #define ff first
 #define ss second
@@ -90,43 +90,45 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll nos_atk(vi &a,ll L,ll R,ll k)
-{
-    fast_o_map<ll,ll> freq;
-    ll l=0;
-    ll uni=0;
-    ll ans=0;
-    for(ll r=0;r<a.size();r++)
-    {
-        if(freq[a[r]]==0) uni++;
-        freq[a[r]]++;
-        while(uni>k || r-l+1>R)
-        {
-            freq[a[l]]--;
-            if(freq[a[l]]==0) uni--;
-            l++;
-        }
-        if(r-l+1>=L)
-        {
-            ans+=r-l+1-(L-1);// 1..L-1 array shorter
-        }
-
-    }
-    return ans;
-}
-
 void solve() {
-    ll n,k,L,R;cin>>n>>k>>L>>R;
-    vi a(n);
-    rep(i,0,n) cin>>a[i];
-    cout<<nos_atk(a,L,R,k)-nos_atk(a,L,R,k-1)<<endl;
+    // sim as edit distance but +backtracking
+    ll n,m;cin>>n>>m;
+    vector<ll> a(n),b(m);
+    for(auto &x:a) cin>>x;
+    for(auto &x:b) cin>>x;
+    vector<vector<ll>> dp(n+1,vector<ll> (m+1,0));
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            if(a[i-1]==b[j-1]) dp[i][j]=1+dp[i-1][j-1];
+            else{
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+    }
+    cout<<dp[n][m]<<endl;
+    vector<ll> ans;
+    ll i=n;ll j=m;
+    while(i>0 && j>0)
+    {
+        if(a[i-1]==b[j-1]) 
+        {
+            ans.push_back(a[i-1]);
+            j--;i--;
+        }
+        else if(dp[i-1][j]>dp[i][j-1]) i--;
+        else j--;
+    }
+    per(i,ans.size()-1,0) cout<<ans[i]<<" ";
 }
+
 
 int main() {
     fast_io();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--) {
         solve();
