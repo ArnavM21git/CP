@@ -90,23 +90,21 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll binexp(ll a,ll b,ll mod)
-{
-    ll res=1;
-    while(b)
-    {
-        if(b&1)
-        {
-            res=(res*a)%mod;
-        }
-        a=(a*a)%mod;
-        b>>=1;
-    }
-    return res;
-}
 void solve() {
-    ll a,b;cin>>a>>b;
-    cout<<binexp(a,b,(ll)1e9+7)<<endl;
+    ll n;cin>>n;
+    vector<double> c(n),p(n);
+    rep(i,0,n)
+    {
+        cin>>c[i]>>p[i];
+    }
+    vector<double> dp(n+1,-2e9);//dp[i]=max pt from i to n
+    dp[n]=c[n-1];
+    for(int i=n-1;i>=1;i--)
+    {
+        dp[i]=max(dp[i+1],dp[i+1]*(1-p[i-1]/100)+c[i-1]);
+    }
+    cout<<fixed<<setprecision(10)<<dp[1]<<endl;
+
 }
 
 int main() {

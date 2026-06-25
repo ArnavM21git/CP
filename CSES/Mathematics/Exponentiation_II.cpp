@@ -21,15 +21,16 @@ using namespace std;
 using namespace __gnu_pbds;
 
 // ----- TYPEDEFS -----
-using ll = long long;
-using vi = vector<long long>;
-using vll = vector<long long>;
+using ll = int64_t;
+using vi = vector<int>;
+using vll = vector<int>;
 
 // ----- MACROS -----
-#define rep(i,a,b) for(long long i=(a); i<(b); i++)
-#define per(i,a,b) for(long long i=(a); i>=(b); i--)
+#define int int64_t
+#define rep(i,a,b) for(int i=(a); i<(b); i++)
+#define per(i,a,b) for(int i=(a); i>=(b); i--)
 #define all(x) (x).begin(), (x).end()
-#define sz(x) ((long long)(x).size())
+#define sz(x) ((int)(x).size())
 #define pb push_back
 #define ff first
 #define ss second
@@ -90,26 +91,42 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll binexp(ll a,ll b,ll mod)
+int binexp(int a, int b, int mod)
 {
-    ll res=1;
+    int res = 1;
     while(b)
     {
-        if(b&1)
+        if(b & 1)
         {
-            res=(res*a)%mod;
+            res = (res * a) % mod;
         }
-        a=(a*a)%mod;
-        b>>=1;
+        b >>= 1;
+        a = (a * a) % mod;
     }
     return res;
 }
-void solve() {
-    ll a,b;cin>>a>>b;
-    cout<<binexp(a,b,(ll)1e9+7)<<endl;
+
+int binmul(int a, int b, int mod)
+{
+    int res = 0;
+    while(b)
+    {
+        if(b & 1)
+        {
+            res = (res + a) % mod;
+        }
+        b >>= 1;
+        a = (a + a) % mod;
+    }
+    return res;
 }
 
-int main() {
+void solve() {
+    ll a,b,c;cin>>a>>b>>c;
+    cout<<binexp(a,binexp(b,c,((ll)1e9+7)-1),(ll)1e9+7)<<endl;;
+}
+
+int32_t main() {
     fast_io();
 
     int t = 1;

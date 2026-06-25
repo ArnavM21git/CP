@@ -90,23 +90,22 @@ void fast_io() {
     cin.tie(nullptr);
 }
 
-ll binexp(ll a,ll b,ll mod)
+const int mod=1e9+7;
+
+ll poww(ll a,ll b)
 {
-    ll res=1;
-    while(b)
+    if(b==0) return 1;
+    ll res=poww(a,b/2LL);
+    if(b&1)
     {
-        if(b&1)
-        {
-            res=(res*a)%mod;
-        }
-        a=(a*a)%mod;
-        b>>=1;
+        return (a*((res*res)%mod))%mod;
     }
-    return res;
+    else return (res*res)%mod;
 }
+
 void solve() {
     ll a,b;cin>>a>>b;
-    cout<<binexp(a,b,(ll)1e9+7)<<endl;
+    cout<<poww(a,b)<<endl;
 }
 
 int main() {
