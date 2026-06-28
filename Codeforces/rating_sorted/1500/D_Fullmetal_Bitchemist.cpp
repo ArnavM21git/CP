@@ -142,7 +142,34 @@ int binmul(int a, int b, int mod)
 }
 
 void solve() {
-    
+    int n;cin>>n;
+    string s;cin>>s;
+    int tot=n*(n+1)/2;
+    vector<int> cnt(3,0);
+    cnt[0]=1;
+    int c0=0,c1=0;
+    int notb=0;
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]=='1') c1++;
+        else c0++;
+        int inv=(2*c1+c0)%3;
+        notb+=cnt[inv];
+        cnt[inv]++;
+    }
+    int altodd=0;
+    int len=1;
+    for(int i=1;i<=n;i++)
+    {
+        if(i<n &&s[i]!=s[i-1]) len++;
+        else{
+            
+            int no=(len-1)/2;
+            altodd+=no*len-no*no-no;
+            len=1;
+        }
+    }
+    cout<<tot-notb-altodd<<endl;
 }
 
 int32_t main() {

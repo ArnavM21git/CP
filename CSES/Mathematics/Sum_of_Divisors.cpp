@@ -140,16 +140,33 @@ int binmul(int a, int b, int mod)
     }
     return res;
 }
-
+const int mod=1e9+7;
 void solve() {
-    
+    int n;cin>>n;
+    int sum=0;
+    int i=1;
+    while(i<=n)
+    {
+        int floor=n/i;
+        int nexti=n/floor;
+        int cnt=((nexti-i)+1);
+        //for mod sep ap terms
+        int x=(i+nexti);
+        int y=cnt;
+        if(x%2==0) x/=2;
+        else y/=2;
+        int rsum=(((floor%mod)*(x%mod))%mod*(y%mod))%mod;//ap
+        sum=(sum+rsum)%mod;
+        i=nexti+1;
+    }
+    cout<<sum; 
 }
 
 int32_t main() {
     fast_io();
-    precomp();
+
     int t = 1;
-    cin >> t;
+    
 
     while (t--) {
         solve();
