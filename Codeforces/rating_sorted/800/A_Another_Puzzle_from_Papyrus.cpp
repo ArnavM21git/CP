@@ -141,44 +141,29 @@ int binmul(int a, int b, int mod)
     return res;
 }
 
-
-ll check(ll m,ll c0,ll c1,ll ctill5)
-{
-    ll c1d=c1,c0d=c0;
-    if(c0+(c1/2)<m) return 0;
-    if(c0>=m) c0-=m;
-    else c1-=2*(m-c0),c0=0;
-    ctill5-=c1d-c1+c0d-c0;
-    if(ctill5>=m) return 1;
-    else return 0;
-
-}
 void solve() {
-    int n;cin>>n;
-    string s;cin>>s;
-    int c0=0,c1=0,ctill5=0;
-    for(char ch:s) 
+    int n,c;cin>>n>>c;
+    vi a(n),b(n);
+    rep(i,0,n) cin>>a[i];
+    rep(i,0,n) cin>>b[i];
+    vi dup=a;
+    ll ans1=0;
+    rep(i,0,n)
     {
-        if(ch=='1') c1++;
-        if(ch=='0') c0++;
-        if(ch>='0' && ch<='5') ctill5++;    
+        if(a[i]<b[i]) {ans1=1e9;break;}
+        else ans1+=abs(a[i]-b[i]);
     }
-    int l=0,r=n/4;
-    ll res=0;
-    while(l<=r)
+    sort(all(a));
+    sort(all(b));
+    ll ans=0;
+    rep(i,0,n)
     {
-        int m=(r-l)/2+l;
-        if(check(m,c0,c1,ctill5))
-        {
-            res=max(res,m);
-            l=m+1;
-        }
-        else 
-        {
-            r=m-1;
-        }
+        if(a[i]<b[i]) {cout<<-1<<endl;return;}
+        
+        ans+=abs(a[i]-b[i]);
     }
-    cout<<res<<endl;
+     cout<<min(ans1,ans+c)<<endl;
+
 }
 
 int32_t main() {
