@@ -143,14 +143,17 @@ int binmul(int a, int b, int mod)
 
 void solve() {
     int n;cin>>n;
-    string s;cin>>s;
-    int part=0;
+    vi a(n),b(n);
+    rep(i,0,n) cin>>a[i];
+    rep(i,0,n) cin>>b[i];
+    bool alt=1;
     rep(i,1,n)
     {
-        if(s[i]!=s[i-1]) part++;
+        if(!(a[i]<b[i] && a[i-1]>b[i-1]) ||(a[i]>b[i] && a[i-1]<b[i-1])) alt=0;
     }
-    if(part==1) cout<<2<<endl;
-    else cout<<1<<endl;
+    if(alt) {cout<<"YES"<<endl;return;}
+    if(n==1 && a[0]>b[0]) {cout<<"NO"<<endl;return;}
+    
 }
 
 int32_t main() {
