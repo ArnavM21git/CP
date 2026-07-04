@@ -142,21 +142,9 @@ int binmul(int a, int b, int mod)
 }
 
 void solve() {
-    ll n;cin>>n;
-    vll a(n),b(n);
-    rep(i,0,n) cin>>a[i];
-    rep(i,0,n) cin>>b[i];
-    per(i,n-1,0)
-    {
-        ll x=b[i]-a[i];
-        if(x<0 && i==0){cout<<"NO"<<endl;return;}
-        else if(x<0){
-            a[i-1]-=x;
-        }
-    }
-    cout<<"YES"<<endl;
-    
-
+    int n,m,r,c;cin>>n>>m>>r>>c;
+    int cell=n*m-(n-r+1)*(m-c+1);
+    cout<<binexp(2,cell,998244353)<<endl;
 }
 
 int32_t main() {
