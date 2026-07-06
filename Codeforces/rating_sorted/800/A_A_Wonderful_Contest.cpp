@@ -145,7 +145,8 @@ void solve() {
     int n;cin>>n;
     vi a(n);
     rep(i,0,n) cin>>a[i];
-    
+    if(find(a.begin(),a.end(),100)!=a.end()) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 }
 
 int32_t main() {
