@@ -144,7 +144,16 @@ int binmul(int a, int b, int mod)
 void solve() {
     int n;cin>>n;
     vi a(n);
-    rep(i,0,n) cin>>a[i];
+    ll xorr=0;
+    rep(i,0,n) {cin>>a[i];xorr^=a[i];}
+    if(xorr==0) {cout<<1<<endl;return;}
+    if(n==1) {cout<<0<<endl;return;}
+    ll ans=(xorr==0);
+    rep(i,0,n)
+    {
+        if((xorr^a[i])<a[i]) ans++;
+    }
+    cout<<ans<<endl;
     
 }
 
