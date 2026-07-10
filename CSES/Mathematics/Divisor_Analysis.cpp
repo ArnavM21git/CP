@@ -140,62 +140,26 @@ int binmul(int a, int b, int mod)
     }
     return res;
 }
-
+const int m=1e9+7;
 void solve() {
-    int n,k;cin>>n>>k;
-    vi a(n);rep(i,0,n) cin>>a[i];
+    int n;cin>>n;
+    vector<pair<int,int>> pf(n,{0,0});
+    ll c=1;
+    rep(i,0,n)
+    {
+        ll x,k;cin>>x>>k;
+        pf[i]={x,k};
+        c=(c*(k+1))%m;
+        
+    }
     
-    vi freq;
-    int c=1;
-    rep(i,1,n)
-    {
-        if(a[i]==a[i-1]) c++;
-        else {freq.push_back(c);c=1;}
-    }
-    freq.push_back(c);
-
-    sort(all(freq));
-
-
-    vector<pair<int,int>> gfreq;
-    c=1;
-    rep(i,1,sz(freq))
-    {
-        if(freq[i]==freq[i-1]) c++;
-        else{
-            gfreq.push_back({freq[i-1],c});c=1;
-        }
-    }
-    gfreq.push_back({freq[sz(freq)-1],c});
-
-    int uni=freq.size();
-    int no=n;
-    int ans=0;
-
-    for(auto &[freqq,c]:gfreq)
-    {
-        if((k-no)%uni==0)
-        {
-            if (no -(uni*freqq)<4k) {
-                ans++;
-            }
-        }
-        no-=freqq*c;
-        uni-=c;
-    }
-    cout<<ans<<endl;
-    
-
-
-
-
 }
 
 int32_t main() {
     fast_io();
 
     int t = 1;
-    cin >> t;
+    
 
     while (t--) {
         solve();

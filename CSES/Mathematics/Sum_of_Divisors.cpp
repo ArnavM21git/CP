@@ -148,16 +148,16 @@ void solve() {
     while(i<=n)
     {
         int floor=n/i;
-        int nexti=n/floor;
-        int cnt=((nexti-i)+1);
+        int nexti=n/floor+1;
+        int cnt=((nexti-i));
         //for mod sep ap terms
-        int x=(i+nexti);
+        int x=(i+nexti-1);
         int y=cnt;
         if(x%2==0) x/=2;
         else y/=2;
         int rsum=(((floor%mod)*(x%mod))%mod*(y%mod))%mod;//ap
         sum=(sum+rsum)%mod;
-        i=nexti+1;
+        i=nexti;
     }
     cout<<sum; 
 }
