@@ -30,6 +30,7 @@ using vll = vector<ll>;
 #define rep(i,a,b) for(int i=(a); i<(b); i++)
 #define per(i,a,b) for(int i=(a); i>=(b); i--)
 #define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) ((int)(x).size())
 #define pb push_back
 #define ff first
@@ -143,72 +144,36 @@ int binmul(int a, int b, int mod)
     return res;
 }
 
-const int m=1e9+7;
 void solve() {
-    int n;cin>>n;
-    vector<pair<int,int>> pf(n,{0,0});
-    ll c=1,dup;
-    ll sum=1;
-    bool perfectsq=1;
-    rep(i,0,n)
+    string s;cin>>s;
+    vector<int> a(s.size());
+    rep(i,0,s.size())
     {
-        ll x,k;cin>>x>>k;
-        pf[i]={x,k};
-        c=(c*(k+1))%m;
-        ll num=((binexp(x,k+1,m)-1+m))%m;//gp
-        ll den=(binexp(x-1,m-2,m))%m;//gp
-        ll term=(num*den)%m;
-        sum=(sum*term)%m;//gp
-        if(k&1) perfectsq=0;
+        int d=s[i]-48;
+        if(i==0) a[i]=d-1;
+        else a[i]=d;
     }
-    cout<<c<<" "<<sum<<" ";
-    ll  pro=1;
-    if(!perfectsq)// not prefect sqaure
-    {
-        ll base=1;
-        for(auto &[fact,exp]:pf)
-        {
-            base=(base*binexp(fact,exp,m))%m;//base forming
-        }
-        c=1;
-        bool divide2=0;
-        for(auto &[fact,pow]:pf)
-        {
-            if(!divide2 && pow%2!=0)
-            {
-                divide2=1;
-                c=(c*((pow+1)/2))%(m-1);
-            }
-            else{
-                c=(c*(pow+1))%(m-1);
-            }
-        }
-        pro=binexp(base,c,m);
-    }
-    else{//perefct squera
-        ll base=1;
-        for(auto &[fact,exp]:pf)
-        {
-            base=(base*binexp(fact,exp/2,m))%m;//base forming
-        }
-        //again make expo as c is chnaged one
-        c=1;
-        for(auto &[fact,pow]:pf)
-        {
-            c=(c*(pow+1))%(m-1);
-        }
-        pro=binexp(base,c,m);
-    }
+    ll asum=accumulate(a.begin(),a.end(),0LL)+1;
+    if(asum<=9) {cout<<0<<endl;return;}
+    sort(rall(a));
 
-    cout<<pro;
-    
+    ll c=0;
+    ll sum=asum;
+    int i=0;
+    while(sum>9)
+    {
+        sum-=a[i++];
+        c++;
+    }
+    cout<<c<<endl;
+
 }
 
 int32_t main() {
     fast_io();
 
     int t = 1;
-    
+    cin >> t;
 
     while (t--) {
         solve();
