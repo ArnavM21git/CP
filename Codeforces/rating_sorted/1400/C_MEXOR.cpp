@@ -27,8 +27,8 @@ using vll = vector<ll>;
 
 // ----- MACROS -----
 #define int int64_t
-#define rep(i,a,b) for(int i=(a); i<(b); i++)
-#define per(i,a,b) for(int i=(a); i>=(b); i--)
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define per(i, a, b) for (int i = (a); i >= (b); i--)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) ((int)(x).size())
@@ -37,15 +37,18 @@ using vll = vector<ll>;
 #define ss second
 
 // ----- CUSTOM HASH -----
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
+struct custom_hash
+{
+    static uint64_t splitmix64(uint64_t x)
+    {
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
 
-    size_t operator()(uint64_t x) const {
+    size_t operator()(uint64_t x) const
+    {
         static const uint64_t FIXED_RANDOM =
             chrono::steady_clock::now().time_since_epoch().count();
 
@@ -54,7 +57,7 @@ struct custom_hash {
 };
 
 // Fast Hash Map
-template<typename K, typename V>
+template <typename K, typename V>
 using fast_o_map = gp_hash_table<K, V, custom_hash>;
 
 // ----- PBDS -----
@@ -63,8 +66,8 @@ typedef tree<
     null_type,
     less<int>,
     rb_tree_tag,
-    tree_order_statistics_node_update
-> ordered_set;
+    tree_order_statistics_node_update>
+    ordered_set;
 
 // find_by_order(k)
 // order_of_key(x)
@@ -88,7 +91,6 @@ typedef tree<
 //     }
 // }
 
-
 // ----- OPTIMIZED SIEVE -----
 // TC: O(n log log n)
 // const int N = 1e7 + 10;
@@ -107,7 +109,8 @@ typedef tree<
 // }
 
 // Fast I/O
-void fast_io() {
+void fast_io()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
@@ -116,9 +119,9 @@ int binexp(int a, int b, int mod)
 {
     a %= mod;
     int res = 1;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
             res = (res * a) % mod;
         }
@@ -132,9 +135,9 @@ int binmul(int a, int b, int mod)
 {
     a %= mod;
     int res = 0;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
             res = (res + a) % mod;
         }
@@ -144,18 +147,76 @@ int binmul(int a, int b, int mod)
     return res;
 }
 
-void solve() {
-    int n,k;cin>>n>>k;
-    
+void solve()
+{
+    int n, k;
+    cin >> n >> k;
+    if (n == 1)
+    {
+        if (k == 1)
+        {
+            cout << "YES" << endl
+                 << 0 << endl;
+            return;
+        }
+        else
+        {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    int exp = ((int)log2(n - 1)) + 1;
+    int mx = 1;
+    rep(i, 1, exp + 1) mx *= 2;
+    mx--;
+    int tar = k ^ n;
+    if (tar > mx)
+    {
+        cout << "NO" << endl;
+        return;
+    }
+    cout << "YES" << endl;
+
+    vector<int> ans;
+    if (tar <= n - 1)
+    {
+        ans.push_back(tar);
+        rep(i, 0, n)
+        {
+            if (i == tar)
+                continue;
+            else
+                ans.pb(i);
+        }
+    }
+    else
+    {
+        int newtar = tar ^ (n - 1);
+        ans.pb(n - 1);
+        ans.pb(newtar);
+
+        rep(i, 0, n)
+        {
+            if (i == (n - 1) || i == newtar)
+                continue;
+            else
+                ans.pb(i);
+        }
+    }
+
+    per(i, n - 1, 0) cout << ans[i] << " ";
+    cout << endl;
 }
 
-int32_t main() {
+int32_t main()
+{
     fast_io();
 
     int t = 1;
     cin >> t;
 
-    while (t--) {
+    while (t--)
+    {
         solve();
     }
 

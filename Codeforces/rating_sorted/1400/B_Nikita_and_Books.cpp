@@ -143,41 +143,27 @@ int binmul(int a, int b, int mod)
     }
     return res;
 }
-const int N=1e6+5;
-const int m=1e9+7;
-vector<int> fact(1e6+5,0);
-
-void precomp()
-{
-    fact[0]=1;
-    fact[1]=1;
-    fact[2]=2;
-    rep(i,3,N)
-    {
-        fact[i]=(fact[i-1]*i)%m;
-    }
-}
 
 void solve() {
-    string s;cin>>s;
-    fast_o_map <char,int> freq;
-    for(char &ch:s) freq[ch]++;
-    ll ans= (fact[s.size()])%m;
-    for(auto &[ch,c]:freq)
+    int n;cin>>n;
+    vi a(n);rep(i,0,n) cin>>a[i];
+    ll sum=accumulate(all(a),0LL);
+    ll mn=(n*(n+1))/2;
+    if(sum<mn) {cout<<"NO"<<endl;return;}
+    ll csum=a[0];
+    rep(i,1,n)
     {
-        if(c==1) continue;
-        else{
-            ans=(ans*binexp(fact[c],m-2,m))%m;
-        }
+        csum+=a[i];
+        if(csum<(((i+1)*(i+2))/2)) {cout<<"NO"<<endl;return;}
     }
-    cout<<ans;
+    cout<<"YES"<<endl;
 }
 
 int32_t main() {
     fast_io();
-    precomp();
+
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();
