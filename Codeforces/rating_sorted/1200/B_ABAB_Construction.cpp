@@ -27,7 +27,7 @@ using vll = vector<ll>;
 
 // ----- MACROS -----
 #define int int64_t
-#define rep(i,a,b) for(int i=(a); i<(b); i++)
+#define rep(i,a,b) for(int i=(a); i<(b); i+=2)
 #define per(i,a,b) for(int i=(a); i>=(b); i--)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
@@ -146,6 +146,19 @@ int binmul(int a, int b, int mod)
 }
 
 void solve() {
+    int n;cin>>n;string s;cin>>s;
+    int st=0;
+    if(n&1)
+    {
+        if(s[0]=='b') {cout<<"NO"<<endl;return;}
+        st=1;
+    }
+    rep(i,st,n-1)//i+=2
+    {
+        if(s[i]=='b' && s[i+1]=='b') {cout<<"NO"<<endl;return;}
+        if(s[i]=='a' && s[i+1]=='a') {cout<<"NO"<<endl;return;}
+    }
+    cout<<"YES"<<endl;
     
 }
 
