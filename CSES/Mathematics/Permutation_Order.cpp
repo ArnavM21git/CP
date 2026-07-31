@@ -27,7 +27,7 @@ using namespace __gnu_pbds;
 using ll = int64_t;
 using vi = vector<ll>;
 using vll = vector<ll>;
-
+using ull=unsigned long long;
 
 // ----- MACROS -----
 #define int int64_t
@@ -163,34 +163,35 @@ int mex(vi &a)
    return n;
 }
 
+vector<ull> fact(22,0);
+void precomp()
+{
+    fact[0]=1;fact[1]=1;fact[2]=2;
+    for(int i=3;i<=21;i++)
+    {
+        fact[i]=fact[i-1]*i;
+    }
+}
+
 void solve() {
-    int n,k;cin>>n>>k;
-    vi a(k),b(n);
-    rep(i,0,k) cin>>a[i];
-    rep(i,0,n) cin>>b[i];
-    ll sum=adder(b);
-    if(sum==(k+1)*n) {cout<<0<<endl<<endl;return;}
-    if(sum>(k+1)*n) {cout<<-1<<endl<<endl;return;}
-    vector<pair<int,int>> p(n,{0,0});
-    rep(i,0,n)
+    ull type,n;cin>>type>>n;
+    if(type==1)
     {
-        p[i]={b[i],i};
+        ull k;cin>>k;
+        for(ull i=n;i>=1;i--)
+        {
+            ull idx=
+        }
     }
-    sort(rall(p));
-    vector<int> ans;
-    for(auto &[x,idx]:p)
+    else
     {
-        int t=k+1;
-        rep(i,0,t-x) ans.push_back(idx);
+
     }
-    cout<<ans.size()<<endl;
-    rep(i,0,ans.size()) cout<<ans[i]+1<<" ";
-    cout<<endl;
 }
 
 int32_t main() {
     fast_io();
-
+    precomp();
     int t = 1;
     cin >> t;
 
