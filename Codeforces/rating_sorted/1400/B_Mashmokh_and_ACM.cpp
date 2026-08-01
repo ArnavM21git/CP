@@ -83,7 +83,7 @@ const int mod=1e9+7;
 void solve() {
     int n,k;cin>>n>>k;
     ll ans=((n-1)*(k))%mod;
-    
+    12 20 15 20
 }
 
 int main() {

@@ -27,7 +27,6 @@ using namespace __gnu_pbds;
 using ll = int64_t;
 using vi = vector<ll>;
 using vll = vector<ll>;
-using ull=unsigned long long;
 
 // ----- MACROS -----
 #define int int64_t
@@ -162,54 +161,30 @@ int mex(vi &a)
    }
    return n;
 }
-
-vector<ull> fact(22,0);
-void precomp()
-{
-    fact[0]=1;fact[1]=1;fact[2]=2;
-    for(int i=3;i<=20;i++)
-    {
-        fact[i]=fact[i-1]*i;
-    }
+// ----- INTERACTIVE QUERY -----
+int ask(int a, int b) {
+    cout << "? " << a << " " << b << endl;
+    int ret;
+    cin >> ret;
+    return ret;
 }
 
 void solve() {
-    ull type,n;cin>>type>>n;
-    if(type==1)
+    int n;cin>>n;
+    for(int i=3;i<2*n;i+=2)
     {
-        ull k;cin>>k;
-        vi no(n);
-        rep(i,1,n+1) no[i-1]=i;
-        for(ull i=n;i>=1;i--)
-        {
-            ull idx=(k-1)/fact[i-1]+1;
-            cout<<no[idx-1]<<" ";
-            no.erase(no.begin()+idx-1);
-            k=((k-1)%fact[i-1])+1;
-        }
-        cout<<endl;
+        int x=ask(i,i+1);
+        if(x==1) {cout<<"! "<<i<<endl;return;}
     }
-    else
-    {
-        vi a(n);
-        rep(i,0,n) cin>>a[i];
-        vi no(n);
-        rep(i,1,n+1) no[i-1]=i;
-        ll ans=1;
-        rep(i,0,n)
-        {
-            auto it=find(all(no),a[i]);
-            int idx=it-no.begin();
-            ans+=idx*fact[n-i-1];
-            no.erase(no.begin()+idx);
-        }
-        cout<<ans<<endl;
-    }
+    bool f1=ask(1,3);
+    bool f2=ask(1,4);
+    if(f1||f2) cout<<"! "<<1<<endl;
+    else cout<<"! "<<2<<endl;
 }
 
 int32_t main() {
     fast_io();
-    precomp();
+
     int t = 1;
     cin >> t;
 

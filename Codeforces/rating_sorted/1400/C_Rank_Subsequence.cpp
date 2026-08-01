@@ -27,12 +27,11 @@ using namespace __gnu_pbds;
 using ll = int64_t;
 using vi = vector<ll>;
 using vll = vector<ll>;
-using ull=unsigned long long;
 
 // ----- MACROS -----
 #define int int64_t
-#define rep(i,a,b) for(int i=(a); i<(b); i++)
-#define per(i,a,b) for(int i=(a); i>=(b); i--)
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define per(i, a, b) for (int i = (a); i >= (b); i--)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) ((int)(x).size())
@@ -42,15 +41,18 @@ using ull=unsigned long long;
 #define adder(v) accumulate(all(v), 0LL)
 
 // ----- CUSTOM HASH -----
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
+struct custom_hash
+{
+    static uint64_t splitmix64(uint64_t x)
+    {
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
 
-    size_t operator()(uint64_t x) const {
+    size_t operator()(uint64_t x) const
+    {
         static const uint64_t FIXED_RANDOM =
             chrono::steady_clock::now().time_since_epoch().count();
 
@@ -59,7 +61,7 @@ struct custom_hash {
 };
 
 // Fast Hash Map
-template<typename K, typename V>
+template <typename K, typename V>
 using fast_o_map = gp_hash_table<K, V, custom_hash>;
 
 // ----- PBDS -----
@@ -68,8 +70,8 @@ typedef tree<
     null_type,
     less<int>,
     rb_tree_tag,
-    tree_order_statistics_node_update
-> ordered_set;
+    tree_order_statistics_node_update>
+    ordered_set;
 
 // find_by_order(k)
 // order_of_key(x)
@@ -93,7 +95,6 @@ typedef tree<
 //     }
 // }
 
-
 // ----- OPTIMIZED SIEVE -----
 // TC: O(n log log n)
 // const int N = 1e7 + 10;
@@ -112,34 +113,35 @@ typedef tree<
 // }
 
 // Fast I/O
-void fast_io() {
+void fast_io()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
 
-int binexp(int a, int b, int mod) //if mod is 10^18 then binmul
+int binexp(int a, int b, int mod) // if mod is 10^18 then binmul
 {
     a %= mod;
     int res = 1;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
-            res = (res * a) % mod;//if mod~10^18: res=binmul(res,a,mod);
+            res = (res * a) % mod; // if mod~10^18: res=binmul(res,a,mod);
         }
         b >>= 1;
-        a = (a * a) % mod; //if mod~10^18: a=binmul(a,a,mod);
+        a = (a * a) % mod; // if mod~10^18: a=binmul(a,a,mod);
     }
     return res;
 }
 
-int binmul(int a, int b, int mod) //if mod is 10^18 then binmul
+int binmul(int a, int b, int mod) // if mod is 10^18 then binmul
 {
     a %= mod;
     int res = 0;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
             res = (res + a) % mod;
         }
@@ -150,70 +152,66 @@ int binmul(int a, int b, int mod) //if mod is 10^18 then binmul
 }
 int mex(vi &a)
 {
-   int n=a.size();
-   vector<int> freq(n+1,0);
-   for(int x:a)
-   {
-     freq[x]++;
-   }
-   rep(i,0,a.size())
-   {
-     if(freq[i]==0) return i;
-   }
-   return n;
+    int n = a.size();
+    vector<int> freq(n + 1, 0);
+    for (int x : a)
+    {
+        freq[x]++;
+    }
+    rep(i, 0, a.size())
+    {
+        if (freq[i] == 0)
+            return i;
+    }
+    return n;
 }
 
-vector<ull> fact(22,0);
-void precomp()
+bool check(int m, int n, vi &l, vi &r, vi &u, vi &v)
 {
-    fact[0]=1;fact[1]=1;fact[2]=2;
-    for(int i=3;i<=20;i++)
+    int j = 1;
+    rep(i, 0, n)
     {
-        fact[i]=fact[i-1]*i;
-    }
-}
-
-void solve() {
-    ull type,n;cin>>type>>n;
-    if(type==1)
-    {
-        ull k;cin>>k;
-        vi no(n);
-        rep(i,1,n+1) no[i-1]=i;
-        for(ull i=n;i>=1;i--)
+        if (j > m)
+            break;
+        if ((j < l[i] || j > (r[i])) && (m - j + 1 < u[i] || m - j + 1 > v[i]))
         {
-            ull idx=(k-1)/fact[i-1]+1;
-            cout<<no[idx-1]<<" ";
-            no.erase(no.begin()+idx-1);
-            k=((k-1)%fact[i-1])+1;
+            j++;
         }
-        cout<<endl;
     }
+    if (j == m + 1)
+        return 1;
     else
+        return 0;
+}
+
+void solve()
+{
+    int n;
+    cin >> n;
+    vi l(n), r(n), u(n), v(n);
+    rep(i, 0, n)
     {
-        vi a(n);
-        rep(i,0,n) cin>>a[i];
-        vi no(n);
-        rep(i,1,n+1) no[i-1]=i;
-        ll ans=1;
-        rep(i,0,n)
+        cin >> l[i] >> r[i] >> u[i] >> v[i];
+    }
+    per(i, n, 0)
+    {
+        if (check(i, n, l, r, u, v))
         {
-            auto it=find(all(no),a[i]);
-            int idx=it-no.begin();
-            ans+=idx*fact[n-i-1];
-            no.erase(no.begin()+idx);
+            cout << i << endl;
+            return;
         }
-        cout<<ans<<endl;
     }
 }
 
-int32_t main() {
+int32_t main()
+{
     fast_io();
-    precomp();
+
     int t = 1;
     cin >> t;
 
-    while (t--) {
+    while (t--)
+    {
         solve();
     }
 
