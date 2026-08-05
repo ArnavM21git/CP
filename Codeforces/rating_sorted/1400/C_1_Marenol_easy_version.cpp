@@ -171,25 +171,25 @@ int ask(int a, int b) {
 
 void solve() {
     int n;cin>>n;
-    int m=2*n;
-    vi a(m);
-    rep(i,0,m) cin>>a[i];
-    vi l(n+1),r(n+1);
-    rep(i,0,m)
+    string a,b;cin>>a>>b;
+    int c1a=count(a.begin(),a.end(),'1');
+    int c0a=count(a.begin(),a.end(),'0');
+    int c1b=count(b.begin(),b.end(),'1');
+    int c0b=count(b.begin(),b.end(),'0');
+    if(c1a!=c1b) {cout<<"NO"<<endl;return;}
+    if(c0a!=c0b) {cout<<"NO"<<endl;return;}
+    int c0aa=0;int c0bb=0;
+    for(int i=1;i<n;i+=2)
     {
-        int x=a[i];
-        if(l[x]==0) l[x]=i+1;
-        else r[x]=i+1;
+        if(a[i]=='0') c0aa++;
     }
-    vi dp(m+1,0);
-    rep(i,1,m+1)
+    for(int i=1;i<n;i+=2)
     {
-        int x=a[i-1];
-        int ll=l[x],rr=r[x]; 
-        int len=i-ll+1;
-        if(len>=0) dp[i]=max(dp[i-1]+1,dp[l[x]-1]+((len)*(len)));
+         if(b[i]=='0') c0bb++;
     }
-    cout<<dp[m]<<endl;
+    if(c0aa==c0bb) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
+
 }
 
 int32_t main() {

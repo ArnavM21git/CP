@@ -170,26 +170,12 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n;cin>>n;
-    int m=2*n;
-    vi a(m);
-    rep(i,0,m) cin>>a[i];
-    vi l(n+1),r(n+1);
-    rep(i,0,m)
-    {
-        int x=a[i];
-        if(l[x]==0) l[x]=i+1;
-        else r[x]=i+1;
-    }
-    vi dp(m+1,0);
-    rep(i,1,m+1)
-    {
-        int x=a[i-1];
-        int ll=l[x],rr=r[x]; 
-        int len=i-ll+1;
-        if(len>=0) dp[i]=max(dp[i-1]+1,dp[l[x]-1]+((len)*(len)));
-    }
-    cout<<dp[m]<<endl;
+    int a,b,c;
+    cin>>a>>b>>c;
+    int d1=abs(a-b);
+    int d2=abs(a-c);
+    int d3=abs(b-c);
+    cout<<min({d1,d2,d3})<<endl;
 }
 
 int32_t main() {

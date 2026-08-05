@@ -171,25 +171,19 @@ int ask(int a, int b) {
 
 void solve() {
     int n;cin>>n;
-    int m=2*n;
-    vi a(m);
-    rep(i,0,m) cin>>a[i];
-    vi l(n+1),r(n+1);
-    rep(i,0,m)
+    string s;cin>>s;
+    int len=1;
+    rep(i,1,n)
     {
-        int x=a[i];
-        if(l[x]==0) l[x]=i+1;
-        else r[x]=i+1;
+        if(s[i]!=s[i-1]) len++;
     }
-    vi dp(m+1,0);
-    rep(i,1,m+1)
+    int m=0;
+    rep(i,1,n-1)
     {
-        int x=a[i-1];
-        int ll=l[x],rr=r[x]; 
-        int len=i-ll+1;
-        if(len>=0) dp[i]=max(dp[i-1]+1,dp[l[x]-1]+((len)*(len)));
+        if(s[i-1]==s[i+1] && s[i]!=s[i+1]) {m=2; break;}
+        else if(s[i-1]!=s[i] &&s[i]!=s[i+1] &&s[i-1]!=s[i+1]) {m=1;}
     }
-    cout<<dp[m]<<endl;
+    cout<<len-m<<endl;
 }
 
 int32_t main() {
