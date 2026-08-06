@@ -170,42 +170,7 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n;cin>>n;
-    vi b(n);
-    rep(i,0,n) cin>>b[i];
-    map<int,int> freq;
-    rep(i,0,n) freq[b[i]]++;
-    if(freq.begin()->first!=0) {cout<<-1<<endl;return;}
-    int prev=0;int prev2=-1;
-    map<int,int> mapp;
-    int i=0;
-    int last=0;
-    for(auto &[n,c]:freq)
-    {
-        if(prev2!=-1)
-        {
-            int d=n-prev;
-            if(d%prev2!=0) {cout<<-1<<endl;return;}
-            if(d/prev2<=last) {cout<<-1<<endl;return;}
-            mapp[prev]=d/prev2;
-            last=d/prev2;
-            
-        }
-        prev=n;
-        prev2=c;
-    }
-    mapp[prev]=last+1;
-
-    vi ans;
-    rep(i,0,n)
-    {
-        ans.pb(mapp[b[i]]);
-    }
-    rep(i,0,n)
-    {
-        cout<<ans[i]<<" ";
-    }
-    cout<<endl;
+    
 }
 
 int32_t main() {
