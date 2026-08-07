@@ -170,29 +170,7 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    string s;cin>>s;
-    int n=s.size();
-    rep(i,0,n)
-    {
-        int x=s[i]-48;
-        int mx=s[i]-48;
-        int pos=i;
-        rep(j,i+1,min(n,i+10))
-        {
-            if(mx<((s[j]-48)-(j-i)))
-            {
-                mx=((s[j]-48)-(j-i));
-                pos=j;
-            }
-        }
-        if(pos==i) continue;
-        per(j,pos,i+1)
-        {
-            s[j]=s[j-1];
-        }
-        s[i]=(char)(mx+48);
-    }
-    cout<<s<<endl;
+    
 }
 
 int32_t main() {
