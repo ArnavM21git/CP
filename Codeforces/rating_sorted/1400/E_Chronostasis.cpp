@@ -30,8 +30,8 @@ using vll = vector<ll>;
 
 // ----- MACROS -----
 #define int int64_t
-#define rep(i,a,b) for(int i=(a); i<(b); i++)
-#define per(i,a,b) for(int i=(a); i>=(b); i--)
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define per(i, a, b) for (int i = (a); i >= (b); i--)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) ((int)(x).size())
@@ -41,15 +41,18 @@ using vll = vector<ll>;
 #define adder(v) accumulate(all(v), 0LL)
 
 // ----- CUSTOM HASH -----
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
+struct custom_hash
+{
+    static uint64_t splitmix64(uint64_t x)
+    {
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
 
-    size_t operator()(uint64_t x) const {
+    size_t operator()(uint64_t x) const
+    {
         static const uint64_t FIXED_RANDOM =
             chrono::steady_clock::now().time_since_epoch().count();
 
@@ -58,7 +61,7 @@ struct custom_hash {
 };
 
 // Fast Hash Map
-template<typename K, typename V>
+template <typename K, typename V>
 using fast_o_map = gp_hash_table<K, V, custom_hash>;
 
 // ----- PBDS -----
@@ -67,8 +70,8 @@ typedef tree<
     null_type,
     less<int>,
     rb_tree_tag,
-    tree_order_statistics_node_update
-> ordered_set;
+    tree_order_statistics_node_update>
+    ordered_set;
 
 // find_by_order(k)
 // order_of_key(x)
@@ -92,7 +95,6 @@ typedef tree<
 //     }
 // }
 
-
 // ----- OPTIMIZED SIEVE -----
 // TC: O(n log log n)
 // const int N = 1e7 + 10;
@@ -111,34 +113,35 @@ typedef tree<
 // }
 
 // Fast I/O
-void fast_io() {
+void fast_io()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
 
-int binexp(int a, int b, int mod) //if mod is 10^18 then binmul
+int binexp(int a, int b, int mod) // if mod is 10^18 then binmul
 {
     a %= mod;
     int res = 1;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
-            res = (res * a) % mod;//if mod~10^18: res=binmul(res,a,mod);
+            res = (res * a) % mod; // if mod~10^18: res=binmul(res,a,mod);
         }
         b >>= 1;
-        a = (a * a) % mod; //if mod~10^18: a=binmul(a,a,mod);
+        a = (a * a) % mod; // if mod~10^18: a=binmul(a,a,mod);
     }
     return res;
 }
 
-int binmul(int a, int b, int mod) //if mod is 10^18 then binmul
+int binmul(int a, int b, int mod) // if mod is 10^18 then binmul
 {
     a %= mod;
     int res = 0;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
             res = (res + a) % mod;
         }
@@ -149,57 +152,71 @@ int binmul(int a, int b, int mod) //if mod is 10^18 then binmul
 }
 int mex(vi &a)
 {
-   int n=a.size();
-   vector<int> freq(n+1,0);
-   for(int x:a)
-   {
-     freq[x]++;
-   }
-   rep(i,0,a.size())
-   {
-     if(freq[i]==0) return i;
-   }
-   return n;
+    int n = a.size();
+    vector<int> freq(n + 1, 0);
+    for (int x : a)
+    {
+        freq[x]++;
+    }
+    rep(i, 0, a.size())
+    {
+        if (freq[i] == 0)
+            return i;
+    }
+    return n;
 }
 // ----- INTERACTIVE QUERY -----
-int ask(int a, int b) {
+int ask(int a, int b)
+{
     cout << "? " << a << " " << b << endl;
     int res;
     cin >> res;
     return res;
 }
 
-void solve() {
-    int n;cin>>n;
-    vi a(n);
-    rep(i,0,n) cin>>a[i];
-    vector<int> freq(1001,0);
-    rep(i,0,n) {freq[a[i]]++;}
-    int mx=-1;
-    int pos=-1;
-    rep(i,0,1001)
+void solve()
+{
+    int n;
+    cin >> n;
+    vi b(n);
+    rep(i, 0, n) cin >> b[i];
+    ll sum = adder(b);
+    if (sum <= 0)
     {
-        if(mx<freq[i])
-        {
-            mx=freq[i];pos=i;
-        }
+        cout << -1 << endl;
+        return;
     }
-    ll sum=0;
-    int f=mx;
-    if(f<=(n+1)/2) cout<<adder(a)<<endl;
-    else{
-        cout<<adder(a)-(((n-(n-f)-(n-f+2)))*(pos))<<endl;
+    multiset<int> m;
+    rep(i, 0, n) m.insert(b[i]);
+    auto it = m.upper_bound(0);
+    int curr = *it;
+    vi ans;
+    ans.pb(*it);
+    m.erase(it);
+    while (!m.empty())
+    {
+        auto it = m.upper_bound(-1 * curr);
+        curr += *it;
+        ans.pb(curr);
+        m.erase(it);
     }
-    
+
+    rep(i, 0, n)
+    {
+        cout << ans[i] << " ";
+    }
+    cout << endl;
 }
 
-int32_t main() {
+int32_t main()
+{
     fast_io();
 
     int t = 1;
     cin >> t;
 
-    while (t--) {
+    while (t--)
+    {
         solve();
     }
 
