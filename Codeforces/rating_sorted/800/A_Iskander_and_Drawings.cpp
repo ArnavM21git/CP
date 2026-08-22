@@ -170,39 +170,17 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vi v(n);rep(i,0,n) cin>>v[i];
-    vector<vector<int>> mat(n,vi (m,0));
+    int n;cin>>n;
+    string s;cin>>s;
+    int mx=0;
+    int lcs=0;
     rep(i,0,n)
     {
-        rep(j,0,m)
-        {
-            cin>>mat[i][j];
-        }
+        if(s[i]=='#') lcs++;
+        else {mx=max(mx,lcs);lcs=0;}
     }
-    int ans=m;
-    multiset<int> st;
-    per(i,n-1,0)
-    {
-        ll sum=0;
-        int c=0;
-        rep(j,0,m)
-        {
-            st.insert(mat[i][j]);
-        }
-        while(st.size()>m)
-        {
-            st.erase(st.begin());
-        }
-        for(auto it=prev(st.end());it!=prev(st.begin());it--)
-        {
-            sum+=*it;
-            c++;
-            if(sum>=v[i]) ans=min(ans,c);
-        }
-
-    }
-    cout<<ans<<endl;
+    mx=max(lcs,mx);
+    cout<<(mx+1)/2<<endl;
 }
 
 int32_t main() {
