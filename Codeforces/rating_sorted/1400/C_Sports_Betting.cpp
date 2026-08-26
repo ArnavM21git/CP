@@ -173,14 +173,25 @@ void solve() {
     int n;cin>>n;vi a(n);
     map<int,int> freq;
     rep(i,0,n) {cin>>a[i];freq[a[i]]++;}
-    for(auto &[day:c]:freq)
+    bool f1=0;
+    int yesterday=-1;
+    for(auto &[day,c]:freq)
     {
+        if(yesterday!=-1 && day-1>yesterday) f1=0;
+
         if(c>=4)
         {
             cout<<"Yes"<<endl;return;
         }
-        else if()
+        else if(c>=2)
+        {
+            if(f1 ) {cout<<"Yes"<<endl;return;}
+            f1=1;
+        }
+        
+        yesterday=day;
     }
+    cout<<"No"<<endl;
 
 }
 
