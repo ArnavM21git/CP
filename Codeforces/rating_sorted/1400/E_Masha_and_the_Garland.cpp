@@ -170,7 +170,28 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    
+    int n,q;cin>>n>>q;
+    string a;cin>>a;
+    int c=0;
+    bool f=1;
+    vector<int> psum(n+1,0);
+    rep(i,1,n)
+    {
+        if(a[i-1]==a[i])
+        {
+            psum[i]=psum[i-1]+1;
+        }
+        else psum[i]=psum[i-1]+0;
+    }
+    while(q--)
+    {
+        int l,r,k;cin>>l>>r>>k;
+        if(l==r) {cout<<"YES"<<endl;continue;}
+        int c=psum[r-1]-psum[l-1];
+        c=(c+1)/2;
+        if(c>k) cout<<"NO"<<endl;
+        else cout<<"YES"<<endl;
+    }
 }
 
 int32_t main() {
