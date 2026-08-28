@@ -170,41 +170,19 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n;cin>>n;
-    vector<string> s(n,"");
-    rep(i,0,n) cin>>s[i];
-    vector<pair<int,int>> cur,nxt;
-    string ans="";ans+=s[0][0];
-    cur.pb({0,0});
-    vector<vector<int>> vis(n,vi (n,0));
-    for(int i=1;i<=2*n-2;i++)
-    {
-        char ch='Z'+1;
-        for(auto &[r,c]:cur)
-        {
-            if(r+1<n)
-                ch=min(ch,s[r+1][c]);
-            if(c+1<n)
-                ch=min(ch,s[r][c+1]);
-        }
-        ans+=ch;
-        for(auto &[r,c]:cur)
-        {
-            if(r+1<n&&ch==s[r+1][c]&&vis[r+1][c]!=1)
-            {
-                vis[r+1][c]=1;
-                nxt.pb({r+1,c});
-            }
-            if(c+1<n&&ch==s[r][c+1]&&vis[r][c+1]!=1)
-            {
-                vis[r][c+1]=1;
-                nxt.pb({r,c+1});
-            }
-        }
-        cur=nxt;
-        nxt.clear();
+    int n,x,y;cin>>n>>x>>y;
+    vi a(n);rep(i,0,n) cin>>a[i];
+    vi trf(n,0);
+    rep(i,0,n) {
+        trf[i]=(a[i]/x)*y;
     }
-    cout<<ans<<endl;
+    ll sum=adder(trf);
+    ll mx=-1;
+    rep(i,0,n)
+    {
+        mx=max(mx,a[i]+sum-trf[i]);
+    }
+    cout<<mx<<endl;
 }
 
 int32_t main() {
@@ -213,7 +191,7 @@ int32_t main() {
     auto start = chrono::high_resolution_clock::now();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();
