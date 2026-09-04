@@ -171,19 +171,15 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n,m;cin>>n>>m;
-    vi a(n);
-    rep(i,0,n) cin>>a[i];
-    map<int,int> freq;
-    rep(i,0,n) freq[a[i]]++;
-    int mx=0;
-    int tot=n;
-    for(int i=1;i<=m;i++)
+    int n;cin>>n;
+    vi a(n);rep(i,0,n) cin>>a[i];
+    int c=0;
+    for(int i=0;i<n;i++)
     {
-       mx=max(mx,tot+freq[2*i]);
-       tot-=freq[i];
+        if(i+1<n)
+            if(a[i]+a[i+1]==7 || a[i]==a[i+1]) {c++;i++;}
     }
-    cout<<mx<<endl;
+    cout<<c<<endl;
 }
 
 int32_t main() {
