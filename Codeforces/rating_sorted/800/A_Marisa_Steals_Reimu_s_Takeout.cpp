@@ -7,7 +7,7 @@
 //
 // LLONG_MAX      // long long
 // LLONG_MIN
-//
+//  
 // UINT_MAX       // unsigned int
 // ULONG_MAX      // unsigned long
 // ULLONG_MAX     // unsigned long long
