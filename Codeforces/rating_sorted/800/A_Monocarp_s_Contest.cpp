@@ -111,6 +111,51 @@ typedef tree<
 //     }
 // }
 
+// ----- SEGMENTED SIEVE -----
+// TC: O(sqrt(R) log log sqrt(R) + (R-L+1) log log R)
+// SC: O(sqrt(R) + R-L+1)
+//
+// const int N = 1e7 + 10;
+// vector<bool> is_prime(N, true);
+// vector<int> primes;
+// vector<bool> segment;
+//
+// void sieve() {
+//     is_prime[0] = is_prime[1] = false;
+//
+//     for (int i = 2; i * i < N; i++) {
+//         if (is_prime[i]) {
+//             for (int j = i * i; j < N; j += i) {
+//                 is_prime[j] = false;
+//             }
+//         }
+//     }
+//
+//     for (int i = 2; i < N; i++) {
+//         if (is_prime[i]) {
+//             primes.pb(i);
+//         }
+//     }
+// }
+//
+// void segmented_sieve(int L, int R) {
+//     segment.assign(R - L + 1, true);
+//
+//     for (int p : primes) {
+//         if (p * p > R) break;
+//
+//         int start = max(p * p, ((L + p - 1) / p) * p);
+//
+//         for (int j = start; j <= R; j += p) {
+//             segment[j - L] = false;
+//         }
+//     }
+//
+//     if (L == 1) {
+//         segment[0] = false;
+//     }
+// }
+
 // Fast I/O
 void fast_io() {
     ios::sync_with_stdio(false);
@@ -171,24 +216,15 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n;cin>>n;vi a(n) ;rep(i,0,n) cin>>a[i];
-    if(count(all(a),0)==1) {cout<<"NO"<<endl;return;}
-    cout<<"YES"<<endl;
-    vector<char> v(n);
-    bool f=0;
-    rep(i,0,n)
+    int n;cin>>n;vi a(n);rep(i,0,n) cin>>a[i];
+    if(count(all(a),0)<2) {cout<<-1<<endl;return;}
+    if(a[0]==1 ||a[n-1]==1)
     {
-        if(a[i]==0)
-        {
-            if(!f) {v[i]='A';f=1;}
-            else v[i]='B';
-        }
-        else
-            v[i]='C';
+        if(a[0]==1 && a[n-1]==1) cout<<2<<endl;
+        else cout<<1<<endl;
     }
-    if(count(all(v),'C')==sz(v)) {v[0]='A';v[1]='B';}
-    rep(i,0,n) cout<<v[i];
-    cout<<endl;
+    else cout<<0<<endl;
+    
 }
 
 int32_t main() {
