@@ -216,22 +216,19 @@ int ask(int a, int b) {
 }
 
 void solve() {
-    int n,x;cin>>n>>x;
-    vi a(n),b(n),c(n);
-    int mx=0;int tot=0; 
-    rep(i,0,n)
+    int n;cin>>n;
+    if(n<=3 && n!=1) cout<<"NO SOLUTION";
+    else
     {
-        cin>>a[i]>>b[i]>>c[i];
-        mx=max(mx,a[i]*b[i]-c[i]);
-        tot+=a[i]*(b[i]-1);
+        for(int i=2;i<=n;i+=2)
+        {
+            cout<<i<<" ";
+        }
+        for(int i=1;i<=n;i+=2)
+        {
+            cout<<i<<" ";
+        }
     }
-    if(tot>=x) {cout<<0<<endl;return;}
-    int fin=x-tot;
-    if(mx==0) {cout<<-1<<endl;}
-    else{
-        cout<<(fin+mx-1)/mx<<endl;
-    }
-
 }
 
 int32_t main() {
@@ -240,7 +237,7 @@ int32_t main() {
     auto start = chrono::high_resolution_clock::now();
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--) {
         solve();
