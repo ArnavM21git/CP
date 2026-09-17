@@ -248,25 +248,8 @@ struct DSU
 };
 
 void solve() {
-    int n,m;cin>>n>>m;
-    DSU dsu(n);
-    while(m--)
-    {
-        int k;cin>>k;
-        if(k>0)
-        {
-            int x;cin>>x;
-            rep(i,1,k)
-            {
-                int y;cin>>y;
-                dsu.unite(x,y);
-            }
-        }
-    }
-    rep(i,0,n)
-    {
-        cout<<dsu.sz[dsu.find(i+1)]<<" ";
-    }
+    int a,b,c,l;cin>>a>>b>>c>>l;
+    
 }
 
 int32_t main() {
@@ -275,7 +258,7 @@ int32_t main() {
     auto start = chrono::high_resolution_clock::now();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();

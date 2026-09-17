@@ -248,25 +248,15 @@ struct DSU
 };
 
 void solve() {
-    int n,m;cin>>n>>m;
-    DSU dsu(n);
-    while(m--)
-    {
-        int k;cin>>k;
-        if(k>0)
-        {
-            int x;cin>>x;
-            rep(i,1,k)
-            {
-                int y;cin>>y;
-                dsu.unite(x,y);
-            }
-        }
-    }
-    rep(i,0,n)
-    {
-        cout<<dsu.sz[dsu.find(i+1)]<<" ";
-    }
+    int na,nb;cin>>na>>nb;int k,m;cin>>k>>m;
+    vi a(na),b(nb);
+    rep(i,0,na) cin>>a[i];
+    rep(i,0,nb) cin>>b[i];
+    vi aa,bb;
+    rep(i,0,k) aa.pb(a[i]);
+    per(i,nb-1,nb-1-k) bb.pb(b[i]);sort(all(bb));
+    if(aa[aa.size()-1]<bb[0]) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 }
 
 int32_t main() {

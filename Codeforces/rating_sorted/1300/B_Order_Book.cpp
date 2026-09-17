@@ -248,25 +248,36 @@ struct DSU
 };
 
 void solve() {
-    int n,m;cin>>n>>m;
-    DSU dsu(n);
-    while(m--)
+    int n,s;cin>>n>>s;
+    vi b(1e5+5,0),ss(1e5+5,0);
+    while(n--)
     {
-        int k;cin>>k;
-        if(k>0)
+        char d;int p,q;cin>>d>>p>>q;
+        if(d=='S')
         {
-            int x;cin>>x;
-            rep(i,1,k)
-            {
-                int y;cin>>y;
-                dsu.unite(x,y);
-            }
+            b[p]+=q;
+        }
+        else{
+            ss[p]+=q;
         }
     }
-    rep(i,0,n)
+    int c=0;
+    per(i,1e5+4,0)
     {
-        cout<<dsu.sz[dsu.find(i+1)]<<" ";
+        if(b[i]!=0 && c<s)
+        {
+            cout<<"S"<<" "<<i<<" "<<b[i]<<endl;c++;
+        }
     }
+    c=0;
+    per(i,1e5+4,0)
+    {
+        if(ss[i]!=0 && c<s)
+        {
+            cout<<"B"<<" "<<i<<" "<<ss[i]<<endl;c++;
+        }
+    }
+    
 }
 
 int32_t main() {
