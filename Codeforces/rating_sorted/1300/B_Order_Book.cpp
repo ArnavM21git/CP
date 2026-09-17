@@ -261,13 +261,18 @@ void solve() {
             ss[p]+=q;
         }
     }
+    vector<pair<int,int>> sell;
     int c=0;
-    per(i,1e5+4,0)
+    rep(i,0,1e5+5)
     {
         if(b[i]!=0 && c<s)
         {
-            cout<<"S"<<" "<<i<<" "<<b[i]<<endl;c++;
+            sell.pb({i,b[i]});c++;
         }
+    }
+    per(i,sz(sell)-1,0)
+    {
+        cout<<"S"<<" "<<sell[i].ff<<" "<<sell[i].ss<<endl;
     }
     c=0;
     per(i,1e5+4,0)

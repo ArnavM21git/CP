@@ -254,7 +254,7 @@ void solve() {
     rep(i,0,nb) cin>>b[i];
     vi aa,bb;
     rep(i,0,k) aa.pb(a[i]);
-    per(i,nb-1,nb-1-k) bb.pb(b[i]);sort(all(bb));
+    per(i,nb-1,nb-1-m+1) bb.pb(b[i]);sort(all(bb));
     if(aa[aa.size()-1]<bb[0]) cout<<"YES"<<endl;
     else cout<<"NO"<<endl;
 }
