@@ -223,12 +223,12 @@ int ask(int a, int b) {
 
 struct DSU
 {
-    vi parent,sz;
+    vi parent,size;
     DSU(int n)
     {
         parent.resize(n+1);
         iota(all(parent),0);
-        sz.assign(n+1,1);
+        size.assign(n+1,1);
     }
     int find(int x)
     {
@@ -240,31 +240,21 @@ struct DSU
         a=find(a);
         b=find(b);
         if(a==b) return 0;
-        if(sz[a]<sz[b]) swap(a,b);
+        if(size[a]<size[b]) swap(a,b);
         parent[b]=a;
-        sz[a]+=sz[b];
+        size[a]+=size[b];
         return 1;
     }
 };
 
-
 void solve() {
-    int a,b,c,l;cin>>a>>b>>c>>l;
-    auto invalid=[](int a,int b,int c,int l)->int
-    {
-        int in=0;
-        rep(i,0,l+1)
-        {
-            int k=min(l-i,a+i-b-c);
-            if(k>=0) in+=((k+1)*(k+2))/2;
-        }
-        return in;
-    };
-    int tot=((l+1)*(l+2)*(l+3))/6;//l+3 c 3
-    int invalida=invalid(a,b,c,l);
-    int invalidb=invalid(b,a,c,l);
-    int invalidc=invalid(c,b,a,l);
-    cout<<tot-invalida-invalidb-invalidc<<endl;
+    int n,x;cin>>n>>x;
+    vi a(n);rep(i,0,n) cin>>a[i];
+    if(n<x) {cout<<*max_element(all(a))<<endl;return;}
+    int sum=accumulate(all(a),0LL);
+    int mx=*max_element(all(a));
+    int avg=(sum+x-1)/x;
+    cout<<max(avg,mx)<<endl;
 }
 
 int32_t main() {
@@ -273,7 +263,7 @@ int32_t main() {
     auto start = chrono::high_resolution_clock::now();
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     while (t--) {
         solve();
