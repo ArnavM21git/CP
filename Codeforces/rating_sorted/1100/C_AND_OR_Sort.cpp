@@ -248,21 +248,25 @@ struct DSU
 };
 
 void solve() {
-    int n,k;cin>>n>>k;
-    int div=1;
-    int t=0;
-    while(n/div>0)
+    int n;cin>>n;
+    string a;cin>>a;
+    int c1=0;int c0=0;
+    vector<pair<int,int>> suff(n+2,{0,0});
+    if(a[0]=='1') {cout<<count(all(a),'0')<<endl;return;}
+    per(i,n,1)
     {
-        int x=n/div;
-        int y=(n+div-1)/div;
-        if(x==k||y==k)
-        {
-            cout<<t<<endl;return; 
-        }
-        t++;
-        div*=2;
+        suff[i].first=suff[i+1].first+(a[i-1]=='0');
+        suff[i].second=suff[i+1].second+(a[i-1]=='1');
     }
-    cout<<-1<<endl;
+    int tot=count(all(a),'1');
+    int mn=n;
+    rep(i,1,n+2)
+    {
+        int l=tot-suff[i].ss;
+        int r=suff[i].ff;
+        mn=min(mn,l+r);
+    }
+    cout<<mn<<endl;
 }
 
 int32_t main() {

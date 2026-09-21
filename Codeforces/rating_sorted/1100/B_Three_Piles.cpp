@@ -248,21 +248,8 @@ struct DSU
 };
 
 void solve() {
-    int n,k;cin>>n>>k;
-    int div=1;
-    int t=0;
-    while(n/div>0)
-    {
-        int x=n/div;
-        int y=(n+div-1)/div;
-        if(x==k||y==k)
-        {
-            cout<<t<<endl;return; 
-        }
-        t++;
-        div*=2;
-    }
-    cout<<-1<<endl;
+    int a,b,c;cin>>a>>b>>c;
+    cout<<max(abs(a+c-b),abs(a-b))<<endl;
 }
 
 int32_t main() {

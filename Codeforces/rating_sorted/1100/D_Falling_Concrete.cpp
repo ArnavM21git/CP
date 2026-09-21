@@ -248,21 +248,25 @@ struct DSU
 };
 
 void solve() {
-    int n,k;cin>>n>>k;
-    int div=1;
-    int t=0;
-    while(n/div>0)
+    int n;cin>>n;vi a(n);rep(i,0,n) cin>>a[i];
+    vi diff(n);
+    rep(i,0,n)
     {
-        int x=n/div;
-        int y=(n+div-1)/div;
-        if(x==k||y==k)
-        {
-            cout<<t<<endl;return; 
-        }
-        t++;
-        div*=2;
+        diff[i]=a[i]-i-1;
     }
-    cout<<-1<<endl;
+    sort(rall(diff));
+    set<int> ss(all(diff));
+    vi temp(all(ss));
+    sort(rall(temp));
+    int lc=1;
+    int mx=1;
+    rep(i,1,sz(temp))
+    {
+        if(temp[i]==temp[i-1]-1) lc++;
+        else {mx=max(mx,lc);lc=1;}
+    }
+    mx=max(mx,lc);
+    cout<<mx<<endl;
 }
 
 int32_t main() {
