@@ -250,7 +250,8 @@ struct DSU
 void solve() {
     int n,k;cin>>n>>k;
     vi a(n);rep(i,0,n) cin>>a[i];
-    
+    sort(all(a));
+    // 0 1 0 1 2 0
 }
 
 int32_t main() {
