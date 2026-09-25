@@ -249,8 +249,7 @@ struct DSU
 
 void solve() {
     int n,k;cin>>n>>k;
-    vi a(n);rep(i,0,n) cin>>a[i];
-    cout<<min(k-1,mex(a))<<endl;
+    cout<<n+((n-1)/(k-1))<<endl;
 }
 
 int32_t main() {

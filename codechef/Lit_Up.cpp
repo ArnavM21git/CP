@@ -250,7 +250,19 @@ struct DSU
 void solve() {
     int n,k;cin>>n>>k;
     vi a(n);rep(i,0,n) cin>>a[i];
-    cout<<min(k-1,mex(a))<<endl;
+    if(4*k+2<n) {cout<<-1<<endl;return;}
+    int sum=1e9;
+    rep(i,0,n)
+    {
+        rep(j,i+1,n)
+        {
+            if(i-k>0 ||j-k>i+k+1 || j+k<n-1) continue;
+            else{
+                sum=min(sum,a[i]+a[j]);
+            }
+        }
+    }
+    cout<<sum<<endl;
 }
 
 int32_t main() {

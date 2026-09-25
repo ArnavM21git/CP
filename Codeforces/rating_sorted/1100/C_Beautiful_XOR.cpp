@@ -249,8 +249,20 @@ struct DSU
 
 void solve() {
     int n,k;cin>>n>>k;
-    vi a(n);rep(i,0,n) cin>>a[i];
-    cout<<min(k-1,mex(a))<<endl;
+    int xorr=n^k;
+    if(n<k)
+    {
+        cout<<-1<<endl;
+    }
+    else if(n==k)
+    {
+        cout<<0<<endl;
+    }
+    else 
+    {
+        cout<<2<<endl;
+        cout<<n<<" "<<k<<endl;
+    }
 }
 
 int32_t main() {

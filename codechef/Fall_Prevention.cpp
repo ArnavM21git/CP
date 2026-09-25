@@ -248,9 +248,29 @@ struct DSU
 };
 
 void solve() {
-    int n,k;cin>>n>>k;
+    int n;cin>>n;
     vi a(n);rep(i,0,n) cin>>a[i];
-    cout<<min(k-1,mex(a))<<endl;
+    vi pref(n+1,0);
+    rep(i,1,n+1)
+    {
+        pref[i]=pref[i-1]+a[i-1];
+    }
+    int idx=-1;
+    rep(i,1,n+1)
+    {
+        if(pref[i]<0) {idx=i;break;}
+    }
+    if(idx==-1) {cout<<"YES"<<endl;return;}
+    int mn = a[0];
+    rep(i, 0, idx) {
+        mn = min(mn,a[i]);
+    }
+    rep(i,idx+1,n+1)
+    {
+        pref[i]-=mn;
+        if(pref[i]<0) {cout<<"NO"<<endl;return;}
+    }
+    cout<<"YES"<<endl;
 }
 
 int32_t main() {

@@ -248,9 +248,45 @@ struct DSU
 };
 
 void solve() {
-    int n,k;cin>>n>>k;
+    int n;cin>>n;
     vi a(n);rep(i,0,n) cin>>a[i];
-    cout<<min(k-1,mex(a))<<endl;
+    int l=1;int r=1e9;
+    int ans=-1;
+    if(is_sorted(all(a))) {cout<<-1<<endl;return;}
+    auto check=[&](int x)
+    {
+        vi temp=a;
+        int s=0;
+        rep(i,0,n)
+        {
+            if(a[i]>=x)
+            {
+                s+=a[i]-x;
+                temp[i]=x;
+            }
+            else 
+            {
+                int t=min(x-a[i],s);
+                temp[i]+=t;
+                s-=take;
+            }
+            
+        }
+        if(is_sorted(all(temp))) return 1;
+        else return 0;
+        
+    };
+    while(l<=r)
+    {
+        int m=(l+((r-l)/2));
+        if(check(m))
+        {
+            ans=max(ans,m);
+            l=m+1;
+        }
+        else r=m-1;
+    }
+    cout<<ans<<endl;
 }
 
 int32_t main() {
