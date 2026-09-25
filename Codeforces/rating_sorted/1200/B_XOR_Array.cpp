@@ -248,36 +248,7 @@ struct DSU
 };
 
 void solve() {
-    int n,k;cin>>n>>k;
-    int xorr=n^k;
-    bool f=0;
-    int sum=0;
-    per(i,31,0)
-    {
-        if(n>>i) {f=1;sum+=1<<i;}
-        else {
-            if(f) sum+=1<<i;
-        }
-    }
-    if(k>sum) {cout<<-1<<endl;return;}
-    vi ans;
-    for(int i=0;i<=31;i++)
-    {
-        bool n1=(n>>i)&1;
-        bool k1=(k>>i)&1;
-        if((n1^k1))
-        {
-            ans.pb(1LL<<i);
-        }
-    }
-    cout<<sz(ans)<<endl;
-    if(sz(ans)>0)
-    {
-        rep(i,0,sz(ans)) cout<<ans[i]<<" ";
-        cout<<endl;
-    }
     
-
 }
 
 int32_t main() {
