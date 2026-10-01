@@ -249,7 +249,16 @@ struct DSU
 
 void solve() {
     int n;cin>>n;vi a(n);rep(i,0,n) cin>>a[i];
-    
+    vi parity(n+1,0);
+    rep(i,1,n+1)
+    {
+        parity[a[i-1]]=i%2; 
+    }
+    for(int i=n;i>0;i-=2)
+    {
+        if(parity[i]==parity[i-1]) {cout<<"NO"<<endl;return;}
+    }
+    cout<<"yes"<<endl;
     
 }
 

@@ -248,31 +248,30 @@ struct DSU
 };
 
 void solve() {
-    int a,b,m;cin>>a>>b>>m;
-    int sum=(m*(m-1))/2;
-    int tot=b-(a+1)+1;
-    int pairs=tot/m;
-    int ans=pairs*sum;
-    int extra=tot%m;
-    int start=(a+1)%m;
-    int end=b%m;
-    if(extra>0)
+    int n;cin>>n;
+    vi a(n),b(n);
+    rep(i,0,n) cin>>a[i];
+    rep(i,0,n) cin>>b[i];
+    int ans=0;
+    rep(i,0,n-1)
     {
-        if(start<=end)
-    {
-        int totnum= end-start+1;
-        ans+=(totnum*(start+end))/2;
-    }
-    else{
-        int nol=m-start;
-        ans+=((nol)*(start+m-1))/2;
-        int nor=end+1;
-        ans+=((nor)*end)/2;
-    }
+        int nxt=a[i]-b[i];
+        if(nxt<0 || nxt>1e15)
+        {
+            cout<<-1<<endl;return;
+        }
+        a[i]-=nxt;
+        a[i+1]+=2*nxt;
+        ans+=nxt;
+        if(ans>1e15) 
+        {
+            cout<<-1<<endl;return;
+        }
     }
     
+    
+    if(a[n-1]!=b[n-1]) {cout<<-1<<endl;return;}
     cout<<ans<<endl;
-    
 }
 
 int32_t main() {
