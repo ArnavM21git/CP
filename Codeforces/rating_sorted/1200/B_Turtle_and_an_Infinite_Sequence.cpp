@@ -249,7 +249,19 @@ struct DSU
 };
 
 void solve() {
-    
+    int n,m;cin>>n>>m;
+    int l=max(0LL,n-m);
+    int r=n+m;
+    int xorr=l^r;
+    if(xorr==0) {cout<<r<<endl;return;}
+    int sum=0;
+    int hsb=63-__builtin_clzll(xorr);
+    rep(i,0,hsb+1)
+    {
+        sum+=(1LL<<i);
+    }
+    cout<<(sum|r)<<endl;
+
 }
 
 int32_t main() {

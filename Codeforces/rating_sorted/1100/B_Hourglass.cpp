@@ -249,7 +249,12 @@ struct DSU
 };
 
 void solve() {
-    
+    int s,k,m;cin>>s>>k>>m;
+    int nof=m/k;
+    int sand=(nof&1)?min(s,k):s;
+    int rem=m%k;
+    if(rem>=sand) {cout<<0<<endl;return;}
+    cout<<abs(rem-sand)<<endl;
 }
 
 int32_t main() {
