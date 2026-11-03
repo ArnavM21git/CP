@@ -32,8 +32,8 @@ using i128 = __int128_t;
 
 // ----- MACROS -----
 #define int int64_t
-#define rep(i,a,b) for(int i=(a); i<(b); i++)
-#define per(i,a,b) for(int i=(a); i>=(b); i--)
+#define rep(i, a, b) for (int i = (a); i < (b); i++)
+#define per(i, a, b) for (int i = (a); i >= (b); i--)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) ((int)(x).size())
@@ -43,15 +43,18 @@ using i128 = __int128_t;
 #define adder(v) accumulate(all(v), 0LL)
 
 // ----- CUSTOM HASH -----
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
+struct custom_hash
+{
+    static uint64_t splitmix64(uint64_t x)
+    {
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
 
-    size_t operator()(uint64_t x) const {
+    size_t operator()(uint64_t x) const
+    {
         static const uint64_t FIXED_RANDOM =
             chrono::steady_clock::now().time_since_epoch().count();
 
@@ -60,7 +63,7 @@ struct custom_hash {
 };
 
 // Fast Hash Map
-template<typename K, typename V>
+template <typename K, typename V>
 using fast_u_map = gp_hash_table<K, V, custom_hash>;
 
 // ----- PBDS -----
@@ -69,8 +72,8 @@ typedef tree<
     null_type,
     less<int>,
     rb_tree_tag,
-    tree_order_statistics_node_update
-> ordered_set;
+    tree_order_statistics_node_update>
+    ordered_set;
 
 // find_by_order(k)
 // order_of_key(x)
@@ -94,23 +97,26 @@ typedef tree<
 //     }
 // }
 
-
 // ----- OPTIMIZED SIEVE -----
 // TC: O(n log log n)
-// const int N = 1e7 + 10;
-// vector<bool> is_prime(N, true);
-//
-// void sieve() {
-//     is_prime[0] = is_prime[1] = false;
-//
-//     for (int i = 2; i * i < N; i++) { // or i*i <= N-1
-//         if (is_prime[i]) {
-//             for (int j = i * i; j < N; j += i) { // or j <= N-1
-//                 is_prime[j] = false;
-//             }
-//         }
-//     }
-// }
+const int N = 1e7 + 10;
+vector<bool> is_prime(N, true);
+
+void sieve()
+{
+    is_prime[0] = is_prime[1] = false;
+
+    for (int i = 2; i * i < N; i++)
+    { // or i*i <= N-1
+        if (is_prime[i])
+        {
+            for (int j = i * i; j < N; j += i)
+            { // or j <= N-1
+                is_prime[j] = false;
+            }
+        }
+    }
+}
 
 // ----- SEGMENTED SIEVE -----
 // TC: O(sqrt(R) log log sqrt(R) + (R-L+1) log log R)
@@ -158,34 +164,35 @@ typedef tree<
 // }
 
 // Fast I/O
-void fast_io() {
+void fast_io()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 }
 
-int binexp(int a, int b, int mod) //if mod is 10^18 then binmul
+int binexp(int a, int b, int mod) // if mod is 10^18 then binmul
 {
     a %= mod;
     int res = 1;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
-            res = (res * a) % mod;//if mod~10^18: res=binmul(res,a,mod);
+            res = (res * a) % mod; // if mod~10^18: res=binmul(res,a,mod);
         }
         b >>= 1;
-        a = (a * a) % mod; //if mod~10^18: a=binmul(a,a,mod);
+        a = (a * a) % mod; // if mod~10^18: a=binmul(a,a,mod);
     }
     return res;
 }
 
-int binmul(int a, int b, int mod) //if mod is 10^18 then binmul
+int binmul(int a, int b, int mod) // if mod is 10^18 then binmul
 {
     a %= mod;
     int res = 0;
-    while(b)
+    while (b)
     {
-        if(b & 1)
+        if (b & 1)
         {
             res = (res + a) % mod;
         }
@@ -196,20 +203,22 @@ int binmul(int a, int b, int mod) //if mod is 10^18 then binmul
 }
 int mex(vi &a)
 {
-   int n=a.size();
-   vector<int> freq(n+1,0);
-   for(int x:a)
-   {
-     freq[x]++;
-   }
-   rep(i,0,a.size())
-   {
-     if(freq[i]==0) return i;
-   }
-   return n;
+    int n = a.size();
+    vector<int> freq(n + 1, 0);
+    for (int x : a)
+    {
+        freq[x]++;
+    }
+    rep(i, 0, a.size())
+    {
+        if (freq[i] == 0)
+            return i;
+    }
+    return n;
 }
 // ----- INTERACTIVE QUERY -----
-int ask(int a, int b) {
+int ask(int a, int b)
+{
     cout << "? " << a << " " << b << endl;
     int res;
     cin >> res;
@@ -224,48 +233,81 @@ int ask(int a, int b) {
 
 struct DSU
 {
-    vi parent,size;
+    vi parent, size;
     DSU(int n)
     {
-        parent.resize(n+1);
-        iota(all(parent),0);
-        size.assign(n+1,1);
+        parent.resize(n + 1);
+        iota(all(parent), 0);
+        size.assign(n + 1, 1);
     }
     int find(int x)
     {
-        if(parent[x]==x) return x;
-        return parent[x]=find(parent[x]);
+        if (parent[x] == x)
+            return x;
+        return parent[x] = find(parent[x]);
     }
-    bool unite(int a,int b)
+    bool unite(int a, int b)
     {
-        a=find(a);
-        b=find(b);
-        if(a==b) return 0;
-        if(size[a]<size[b]) swap(a,b);
-        parent[b]=a;
-        size[a]+=size[b];
+        a = find(a);
+        b = find(b);
+        if (a == b)
+            return 0;
+        if (size[a] < size[b])
+            swap(a, b);
+        parent[b] = a;
+        size[a] += size[b];
         return 1;
     }
 };
 
-void solve() {
-    int n;cin>>n;
-    vi a(n);rep(i,0,n) cin>>a[i];
+void solve()
+{
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i, 0, n) cin >> a[i];
     vi pos(n);
-    rep(i,0,n) pos[a[i]]=i;
-    int ans=0;
-    
+    rep(i, 0, n) pos[a[i]] = i;
+    int ans = 0;
+    int l = pos[0];
+    int r = pos[0];
+    for (int mexx = 1; mexx < n; mexx++)
+    {
+        int p = pos[mexx];
+        if (is_prime[mexx])
+        {
+            
+
+            if (p < l)
+            {
+                ans += (l - p) * (n - r);
+                l = p;
+            }
+            else if (p > r)
+            {
+                ans += (l + 1) * (p - r);
+                r = p;
+            }
+        }
+        l=min(l,p);
+        r=max(r,p);
+    }
+    if (is_prime[n])
+        ans++;
+    cout << ans << endl;
 }
 
-int32_t main() {
+int32_t main()
+{
     fast_io();
 
     auto start = chrono::high_resolution_clock::now();
-
+    sieve();
     int t = 1;
     cin >> t;
 
-    while (t--) {
+    while (t--)
+    {
         solve();
     }
 
